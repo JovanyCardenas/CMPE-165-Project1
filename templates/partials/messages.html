@@ -1,9 +1,53 @@
 {% if messages %}
-    <section class="messages" aria-label="Messages">
-        {% for message in messages %}
-            <div class="message message-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </section>
+
+    <div class="mx-auto w-full max-w-7xl px-4 pt-5 sm:px-6 lg:px-8">
+
+        <div class="space-y-3">
+
+            {% for message in messages %}
+
+                {% if message.tags == "success" %}
+
+                    <div
+                        class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800"
+                        role="alert"
+                    >
+                        {{ message }}
+                    </div>
+
+                {% elif message.tags == "error" %}
+
+                    <div
+                        class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+                        role="alert"
+                    >
+                        {{ message }}
+                    </div>
+
+                {% elif message.tags == "warning" %}
+
+                    <div
+                        class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800"
+                        role="alert"
+                    >
+                        {{ message }}
+                    </div>
+
+                {% else %}
+
+                    <div
+                        class="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800"
+                        role="alert"
+                    >
+                        {{ message }}
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
 {% endif %}

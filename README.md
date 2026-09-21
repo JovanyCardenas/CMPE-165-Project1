@@ -1,235 +1,388 @@
-# Spartan Academic Planner
+# Expense Tracker
 
-**SJSU CMPE 131 — Software Engineering I**
+**SJSU CMPE 165 — Software Engineering Process Management**
+**Project 1: Software Product from Idea to Execution**
 
-The **Spartan Academic Planner (SAP)** is a student-focused academic planning and productivity web application. It is designed to help college students organize course information, automatically turn syllabi into actionable assignments and events, manage personal academic planning, synchronize calendars, and connect with classmates.
+The **Expense Tracker** is a personal finance web application designed to help users record, organize, and better understand their income and spending.
 
-This project is being developed by Group W01 for CMPE 131 while following the software engineering process, including planning, requirements, design, implementation, testing, documentation, and deployment.
+The application provides a centralized location where users can track financial transactions, organize expenses into categories, monitor budgets, and view summaries of their financial activity.
+
+This project is being developed for **CMPE 165 — Software Engineering Process Management** as part of Project 1. In addition to building a working software prototype, the project focuses on applying software project-management concepts including project selection, financial analysis, stakeholder analysis, leadership, risk management, decision analysis, and project evaluation.
+
+---
 
 ## Project Status
 
-**Current Phase:** project definition, requirements, and architecture planning
+**Current Phase:** Active Development
 
-The project idea has been selected and the team is now developing the **Spartan Academic Planner**.
+The project is currently being developed as a working prototype.
 
-## Core Idea
+The primary development focus is creating a small, reliable application that demonstrates the core expense-tracking workflow while remaining achievable within the project's two-week development period.
 
-Students often manage academic information across syllabi, LMS pages, calendars, emails, and personal notes. SAP is intended to reduce that manual work by creating a shared course layer and a private student planning layer.
+---
 
-When multiple students are taking the same exact class, they can use the same course record and the same verified syllabus-generated assignments instead of independently recreating the same information.
+## Problem
 
-Each student can then add their own private assignments, events, reminders, notes, completion status, grades, and study planning information.
+People make purchases across many different categories throughout the month, but it can be difficult to understand where their money is going without consistently tracking their financial activity.
 
-## Planned Features
+Expenses may be spread across:
 
-### Syllabus Parsing
+* Food and dining
+* Transportation
+* Housing
+* Entertainment
+* Shopping
+* Utilities
+* Education
+* Subscriptions
+* Other everyday purchases
 
-- Upload a course syllabus.
-- Extract assignments, quizzes, exams, projects, deadlines, grading information, and important course events.
-- Review and verify parser results before publishing them.
-- Automatically create shared course assignments/events from verified syllabus data.
-- Reuse the parsed syllabus and shared course items for other students who join the same exact class.
+Without an organized system, users may have difficulty determining:
 
-### Shared Courses
+* How much they are spending
+* Which categories account for most of their expenses
+* Whether they are staying within their budget
+* How their income compares with their expenses
+* Where they may be able to reduce unnecessary spending
 
-A shared course record is planned to include:
+The Expense Tracker is intended to simplify this process.
 
-- Class name
-- Short name/course code
-- Course section
-- Semester
-- Year
-- Syllabus file
+---
 
-Students enrolled in the same exact course offering can share course-level information while keeping their personal academic data private.
+## Project Objective
 
-### Shared vs. Personal Academic Items
+The objective of the Expense Tracker is to provide users with a simple and accessible way to:
 
-**Shared course items** may include:
+* Record income and expenses
+* Organize transactions into categories
+* Monitor monthly spending
+* Create and track budgets
+* View financial summaries
+* Identify spending patterns
 
-- Syllabus-generated assignments
-- Exams
-- Quizzes
-- Projects
-- Course deadlines
-- Shared grading categories
+The application is intentionally focused on essential functionality rather than advanced financial services.
 
-**Personal student items** may include:
+---
 
-- Manually created assignments
-- Study sessions
-- Personal reminders
-- Personal course events
-- Completion status
-- Personal notes
-- Scores/grades
-- Estimated effort
+# Core Features
 
-Items that were not generated from the syllabus should be clearly marked by their source, such as `MANUAL` or `CALENDAR_SYNC`.
+## Transaction Management
 
-### Calendar Integration
+Users can record financial transactions including both income and expenses.
 
-SAP is planned to support calendar importing and **two-way synchronization**, beginning with Google Calendar.
+Transaction information may include:
 
-With two-way synchronization:
+* Transaction name or description
+* Amount
+* Transaction type
+* Category
+* Date
+* Notes
 
-- Events created or changed in a linked Google Calendar can appear in SAP.
-- Events or assignments created or changed in SAP can appear in the selected Google Calendar.
-- External event IDs will be tracked to avoid duplicate items.
-- Sync conflicts should be detected instead of silently overwriting data.
-- Standard `.ics` export/subscription may also be supported for other calendar applications.
+Users can also update or remove transactions when necessary.
 
-### Classmates, Privacy, and Communication
+---
 
-Students should be able to see and communicate with other students enrolled in the same course.
+## Expense Categories
 
-Users can set their account to **private**. In private mode:
+Transactions can be organized into categories to make spending easier to understand.
 
-- Other classmates do not see the user's identifying profile information in the normal classmate list.
-- Other students cannot initiate communication with the private user.
-- The private user can choose to message another student first.
-- After the private user initiates contact, their identity can be shared with that student within the conversation without making the profile public to everyone else.
+Example categories include:
 
-### Academic Planning
+* Food
+* Transportation
+* Housing
+* Utilities
+* Entertainment
+* Shopping
+* Education
+* Health
+* Subscriptions
+* Other
 
-Additional planned planner features include:
+Categories allow the application to calculate and display spending by type.
 
-- Calendar and upcoming-deadline views
-- Weekly workload summaries
-- Estimated study time
-- Crunch-week indicators
-- Assignment completion tracking
-- Grade projections and hypothetical grade scenarios
-- Customizable student planning views
+---
 
-## High-Level Data Concept
+## Budget Tracking
+
+Users can create budgets to help control their spending.
+
+Budgets may be created for specific categories or for a general monthly spending limit.
+
+The application can compare actual spending against the user's configured budget and show:
+
+* Amount budgeted
+* Amount spent
+* Amount remaining
+* Percentage of budget used
+
+---
+
+## Financial Dashboard
+
+The dashboard provides a quick overview of the user's financial activity.
+
+Information displayed may include:
+
+* Total income
+* Total expenses
+* Current balance
+* Monthly spending
+* Remaining budget
+* Recent transactions
+* Spending by category
+
+Charts and summary cards may be used to make financial information easier to understand.
+
+---
+
+## Transaction History and Filtering
+
+Users can view previously recorded transactions.
+
+Transactions may be filtered or searched using information such as:
+
+* Transaction type
+* Category
+* Date
+* Description
+
+This allows users to review specific parts of their financial history without searching manually through every transaction.
+
+---
+
+# Planned / Future Features
+
+The initial prototype focuses on the application's core expense-tracking functionality.
+
+If development continues, additional features could include:
+
+* Recurring transactions
+* Savings goals
+* Account tracking
+* Receipt uploads
+* CSV import/export
+* Advanced financial reports
+* Spending trend analysis
+* Email notifications
+* Budget warnings
+* Debt tracking
+* Shared household expenses
+* Bank account integrations
+* Mobile notifications
+
+These features are considered future enhancements and are not required for the initial prototype.
+
+---
+
+# High-Level Data Concept
 
 ```text
-Shared Course
-├── Course information
-├── Syllabus
-├── Syllabus-generated assignments
-├── Syllabus-generated events
-└── Shared grading information
-
-Student Enrollment
-└── connects each user to the shared course
-
-Private Student Layer
-├── Completion status
-├── Scores / grades
-├── Personal notes
-├── Manual assignments
-├── Study sessions
-├── Personal events
-└── Calendar connections
+User
+│
+├── Transactions
+│   ├── Income
+│   └── Expenses
+│
+├── Categories
+│   ├── Food
+│   ├── Transportation
+│   ├── Housing
+│   ├── Entertainment
+│   └── Other Categories
+│
+├── Budgets
+│   ├── Budget Amount
+│   ├── Category
+│   └── Spending Progress
+│
+└── Financial Dashboard
+    ├── Total Income
+    ├── Total Expenses
+    ├── Balance
+    ├── Budget Status
+    └── Spending Analysis
 ```
 
 The main design principle is:
 
-> **Shared academic information should be created once, while personal planning information remains unique to each student.**
+> **Financial information should be simple to enter, easy to organize, and easy to understand.**
 
-## Frameworks & Tools
+---
 
-Current/planned project tools include:
+# Technology Stack
 
-- Python
-- Django
-- HTML
-- CSS
-- JavaScript
-- SQLite for local development
-- PostgreSQL for deployment
-- Docker
-- GitHub
-- GitHub Actions
-- GitHub Wiki
-- Render
-- Progressive Web App setup
+The project is currently being developed using:
 
-Additional integrations or dependencies may be added as development begins, including syllabus parsing and calendar synchronization libraries/APIs.
+* Python
+* Django
+* HTML
+* Tailwind CSS
+* JavaScript
+* SQLite
+* Git
+* GitHub
 
-## Team Members
+Additional technologies used by the project infrastructure may include:
 
-- Jovany Cardenas Vargas
-- Fawad Afzal
-- Terence Aung
-- Aman Bose
+* Docker
+* GitHub Actions
+* PostgreSQL
+* Render
+* Gunicorn
+* WhiteNoise
 
-## Repository Workflow
+SQLite is used for local development. PostgreSQL may be used if the application is deployed to a production environment.
 
-This repository uses a protected `main` branch.
+---
 
-Team workflow:
+# Project Structure
 
-1. Pull the latest `main`.
-2. Create a new branch.
-3. Make changes.
-4. Commit changes.
-5. Push the branch.
-6. Open a pull request.
-7. Wait for GitHub Actions to pass.
-8. Get a teammate review.
-9. Merge into `main`.
+The application uses the Django web framework.
 
-Basic commands:
+A simplified project structure may look similar to:
+
+```text
+expense-tracker/
+│
+├── accounts/
+│   ├── models.py
+│   ├── views.py
+│   ├── forms.py
+│   └── urls.py
+│
+├── expenses/
+│   ├── models.py
+│   ├── views.py
+│   ├── forms.py
+│   ├── urls.py
+│   └── admin.py
+│
+├── core/
+│
+├── templates/
+│
+├── static/
+│
+├── manage.py
+├── requirements.txt
+├── README.md
+└── .env.example
+```
+
+The exact structure may change as development continues.
+
+---
+
+# Team Members
+
+* [Team Member Name]
+* [Team Member Name]
+* [Team Member Name]
+
+Replace this section with the names of the CMPE 165 project team members.
+
+---
+
+# Development Workflow
+
+The project uses Git and GitHub for version control.
+
+A typical workflow is:
+
+1. Pull the latest changes.
+2. Create or switch to a development branch.
+3. Implement a feature or fix.
+4. Test the changes locally.
+5. Commit the changes.
+6. Push the branch to GitHub.
+7. Open a pull request when appropriate.
+8. Review and merge the changes.
+
+Example:
 
 ```bash
 git checkout main
 git pull origin main
-git checkout -b feature/example-name
+
+git checkout -b feature/transaction-management
 
 # Make changes
 
 git add .
-git commit -m "Describe the change"
-git push -u origin feature/example-name
+git commit -m "Add transaction management"
+git push -u origin feature/transaction-management
 ```
 
-See the project's Git Workflow documentation for the full team workflow.
+---
 
-## Running the Project Locally
+# Running the Project Locally
 
-Clone the repository:
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/JovanyCardenas/SE-1-Project.git
-cd SE-1-Project
+git clone <repository-url>
+cd <repository-folder>
 ```
 
-Create a virtual environment:
+Replace `<repository-url>` and `<repository-folder>` with the project's actual GitHub information.
+
+---
+
+## 2. Create a Virtual Environment
 
 ```bash
 python -m venv .venv
 ```
 
-Activate it on macOS/Linux:
-
-```bash
-source .venv/bin/activate
-```
-
-Activate it on Windows PowerShell:
+### Windows PowerShell
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-Install dependencies:
+### macOS / Linux
+
+```bash
+source .venv/bin/activate
+```
+
+---
+
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Create a `.env` file using `.env.example` as a guide.
+---
 
-Run migrations:
+## 4. Configure Environment Variables
+
+Create a `.env` file using `.env.example` as a reference if environment variables are required.
+
+---
+
+## 5. Run Database Migrations
 
 ```bash
 python manage.py migrate
 ```
 
-Start the development server:
+---
+
+## 6. Create an Administrator Account
+
+Optional:
+
+```bash
+python manage.py createsuperuser
+```
+
+---
+
+## 7. Start the Development Server
 
 ```bash
 python manage.py runserver
@@ -241,9 +394,11 @@ Open:
 http://127.0.0.1:8000/
 ```
 
-## Running with Docker
+---
 
-Build and start the project:
+# Running with Docker
+
+If Docker is being used, build and start the project with:
 
 ```bash
 docker compose up --build
@@ -255,7 +410,7 @@ Run migrations:
 docker compose exec web python manage.py migrate
 ```
 
-Create an admin user:
+Create an administrator:
 
 ```bash
 docker compose exec web python manage.py createsuperuser
@@ -267,37 +422,103 @@ Stop the containers:
 docker compose down
 ```
 
-## Documentation
+---
 
-Project documentation can be maintained in the repository and GitHub Wiki.
+# AI-Assisted Development
 
-Suggested documentation areas include:
+Generative AI tools are being used as development assistants during this project.
 
-- Project Overview
-- Academic Planner Specification
-- Requirements
-- User Stories
-- Database Design
-- Syllabus Parser
-- Calendar Synchronization
-- Privacy & Messaging
-- Testing Plan
-- Git Workflow
-- Setup Guide
-- Meeting Notes
+## AI Tools Used
 
-## Deployment
+AI tools used during development may include:
 
-The project is planned to be deployed using Render.
+* ChatGPT
+* GitHub Copilot or other AI coding assistants, if used by team members
 
-Deployment may include:
+---
 
-- Render Python web service
-- Render PostgreSQL database
-- Gunicorn
-- WhiteNoise for static files
-- Environment variables for production settings
+## How AI Assisted Development
 
-## License
+AI tools have been used to assist with tasks such as:
 
-TBD
+* Brainstorming application architecture
+* Reviewing project requirements
+* Generating initial code examples
+* Troubleshooting Django errors
+* Improving HTML and Tailwind CSS layouts
+* Suggesting model and database structures
+* Reviewing code
+* Improving documentation
+* Identifying possible edge cases and testing scenarios
+
+AI-generated suggestions are reviewed by team members before being incorporated into the project.
+
+---
+
+## AI-Generated Code Requiring Modification
+
+During development, the team will document at least one example where AI-generated code did not work correctly or required human modification.
+
+Example to update before submission:
+
+> An AI-generated implementation initially produced code that did not correctly match the existing Django project structure. The team reviewed the generated code, identified the incompatibility, and modified the implementation so that it integrated correctly with the application's models, URLs, templates, and existing project configuration.
+
+This section will be updated with a specific example from the actual development process before final submission.
+
+---
+
+## Human Team Decisions
+
+Although AI tools assist with development, project decisions are made by the team.
+
+Important human decisions include:
+
+* Selecting the Expense Tracker as the project
+* Determining the application's minimum viable product
+* Deciding which features are necessary for the prototype
+* Prioritizing functionality based on the project deadline
+* Evaluating whether AI-generated suggestions are appropriate
+* Determining the final design and user experience
+* Deciding when features should be simplified, changed, or removed
+
+The team remains responsible for understanding, testing, and maintaining the software produced during the project.
+
+---
+
+# Existing Project Foundation
+
+The Expense Tracker was initialized using an existing Django project foundation previously developed by a team member.
+
+Reusable infrastructure such as portions of the Django configuration, user-account functionality, shared templates, development configuration, and deployment setup may originate from that existing foundation.
+
+The Expense Tracker's financial functionality, user interface modifications, project requirements, and project-specific features are being adapted and developed for the CMPE 165 project.
+
+This distinction helps document which infrastructure already existed and which functionality was developed specifically for this project.
+
+---
+
+# Testing
+
+The project should be tested for the application's primary workflows, including:
+
+* Creating a transaction
+* Editing a transaction
+* Deleting a transaction
+* Creating categories
+* Creating budgets
+* Calculating totals
+* Displaying dashboard information
+* User authentication
+* Preventing one user from accessing another user's financial information
+
+Testing may include both automated Django tests and manual testing of the user interface.
+
+---
+
+# Privacy and Security
+
+Because the application manages personal financial information, privacy is an important project consideration.
+
+The prototype should ensure that:
+
+* Users must authentic

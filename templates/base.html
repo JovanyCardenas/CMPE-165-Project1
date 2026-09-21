@@ -1,97 +1,155 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
-
-    <!-- PWA Functionality Code -->
-    <link rel="manifest" href="{% static 'manifest.json' %}">
-    <link rel="icon" type="image/png" sizes="512x512" href="{% static 'icons/icon-512.png' %}">
-    <link rel="apple-touch-icon" href="{% static 'icons/icon-512.png' %}">
-
-    <meta name="theme-color" content="#2563eb">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Student Project">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-    {% block extra_head %}{% endblock %}
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Student Project{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>{% block title %}Expense Tracker{% endblock %}</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <link rel="icon" type="image/png" sizes="512x512"
+          href="{% static 'icons/icon-512.png' %}">
+    <link rel="apple-touch-icon"
+          href="{% static 'icons/icon-512.png' %}">
+
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Expense Tracker">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    {% block extra_head %}{% endblock %}
 </head>
-<body>
-    <!-- Impersonation Notice Bar -->
-    {% if is_impersonating %}
-    <div style="background-color: #fef2f2; border-bottom: 1px solid #fecaca; color: #991b1b; padding: 10px 20px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 9999;">
-        <div>
-            <strong>Impersonation Active:</strong> Logged in as <strong>{{ request.user.username }}</strong>
-            {% if original_user %}
-                (Original Superuser: {{ original_user.username }})
+
+<body class="min-h-full bg-slate-50 text-slate-900 antialiased">
+
+    <div class="min-h-screen flex flex-col">
+
+        <!-- Impersonation Notice -->
+        {% if is_impersonating %}
+            <div class="sticky top-0 z-[100] border-b border-red-200 bg-red-50">
+                <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 text-sm text-red-800 sm:px-6 lg:px-8">
+
+                    <div>
+                        <span class="font-semibold">Impersonation Active:</span>
+                        Logged in as
+                        <span class="font-semibold">{{ request.user.username }}</span>
+
+                        {% if original_user %}
+                            <span class="text-red-600">
+                                (Original Superuser: {{ original_user.username }})
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <a
+                        href="{% url 'stop_impersonation' %}"
+                        class="shrink-0 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-red-700"
+                    >
+                        Exit Impersonation
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+
+
+        <!-- Global Announcement -->
+        {% if active_banner %}
+
+            {% if active_banner.banner_type == "danger" %}
+                <div class="border-b border-red-200 bg-red-50 text-red-800">
+
+            {% elif active_banner.banner_type == "warning" %}
+                <div class="border-b border-amber-200 bg-amber-50 text-amber-800">
+
+            {% elif active_banner.banner_type == "success" %}
+                <div class="border-b border-emerald-200 bg-emerald-50 text-emerald-800">
+
+            {% else %}
+                <div class="border-b border-indigo-200 bg-indigo-50 text-indigo-800">
             {% endif %}
-        </div>
-        <a href="{% url 'stop_impersonation' %}" style="background-color: #dc2626; color: white; padding: 5px 12px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 12px; transition: background 0.2s;">
-            Exit Impersonation &rarr;
-        </a>
+
+                    <div class="mx-auto max-w-7xl px-4 py-2.5 text-center text-sm font-medium sm:px-6 lg:px-8">
+                        {{ active_banner.message }}
+                    </div>
+
+                </div>
+
+        {% endif %}
+
+
+
+        {% include "partials/navbar.html" %}
+
+        {% include "partials/messages.html" %}
+
+
+        <!-- Page Content -->
+        <main class="flex-1">
+            <div class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+
+
+        {% include "partials/footer.html" %}
+
     </div>
-    {% endif %}
 
-    <!-- Global Site Announcement Banner -->
-    {% if active_banner %}
-    <div style="padding: 10px 16px; text-align: center; font-size: 14px; font-weight: 500; border-bottom: 1px solid rgba(0,0,0,0.05);
-        {% if active_banner.banner_type == 'danger' %} background-color: #fee2e2; color: #991b1b;
-        {% elif active_banner.banner_type == 'warning' %} background-color: #fef3c7; color: #92400e;
-        {% elif active_banner.banner_type == 'success' %} background-color: #dcfce7; color: #166534;
-        {% else %} background-color: #e0e7ff; color: #3730a3; {% endif %}">
-        {{ active_banner.message }}
-    </div>
-    {% endif %}
 
-    {% include "partials/navbar.html" %}
-    {% include "partials/messages.html" %}
-
-    <main class="page">
-        {% block content %}
-        {% endblock %}
-    </main>
-
-    {% include "partials/footer.html" %}
-
+    <!-- Shared JavaScript -->
     <script>
-        const menuToggle = document.querySelector(".menu-toggle");
-        const navLinks = document.querySelector("#navLinks");
+        // Mobile navigation
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
 
-        if (menuToggle && navLinks) {
-            menuToggle.addEventListener("click", () => {
-                navLinks.classList.toggle("active");
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
             });
         }
 
-        const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+        // Dropdown menus
+        document.querySelectorAll("[data-dropdown-button]").forEach((button) => {
 
-        dropdownToggles.forEach((toggle) => {
-            toggle.addEventListener("click", (event) => {
+            button.addEventListener("click", (event) => {
                 event.stopPropagation();
 
-                const dropdown = toggle.closest(".dropdown");
+                const menu = button
+                    .closest("[data-dropdown]")
+                    .querySelector("[data-dropdown-menu]");
 
-                document.querySelectorAll(".dropdown").forEach((item) => {
-                    if (item !== dropdown) {
-                        item.classList.remove("active");
-                    }
-                });
+                document
+                    .querySelectorAll("[data-dropdown-menu]")
+                    .forEach((otherMenu) => {
+                        if (otherMenu !== menu) {
+                            otherMenu.classList.add("hidden");
+                        }
+                    });
 
-                dropdown.classList.toggle("active");
+                menu.classList.toggle("hidden");
             });
+
         });
 
         document.addEventListener("click", () => {
-            document.querySelectorAll(".dropdown").forEach((dropdown) => {
-                dropdown.classList.remove("active");
-            });
+            document
+                .querySelectorAll("[data-dropdown-menu]")
+                .forEach((menu) => {
+                    menu.classList.add("hidden");
+                });
         });
     </script>
+
     <script src="{% static 'js/main.js' %}"></script>
+
+    {% block extra_scripts %}{% endblock %}
+
 </body>
 </html>

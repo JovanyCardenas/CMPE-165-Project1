@@ -1,34 +1,500 @@
 {% extends "base.html" %}
 
-{% block title %}Home | Student Project{% endblock %}
+{% block title %}Expense Tracker | Take Control of Your Money{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <div>
-        <p class="eyebrow">Team Project Starter</p>
-        <h1>Build your project from a clean foundation.</h1>
-        <p>
-            This starter layout gives your team a simple place to begin while you decide
-            what your Django app will become.
-        </p>
-        <a class="button" href="{% url 'dashboard' %}">View Dashboard</a>
+
+<!-- Hero -->
+<section class="py-12 sm:py-16 lg:py-20">
+
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+
+        <!-- Hero Copy -->
+        <div>
+
+            <div class="mb-5 inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700">
+                Simple personal finance tracking
+            </div>
+
+            <h1 class="max-w-2xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+                Know where your
+                <span class="text-indigo-600">money goes.</span>
+            </h1>
+
+            <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+                Track your income and expenses, organize transactions,
+                create budgets, and understand your spending from one
+                simple dashboard.
+            </p>
+
+
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+
+                {% if user.is_authenticated %}
+
+                    <a
+                        href="{% url 'expenses:dashboard' %}"
+                        class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                    >
+                        Open Dashboard
+
+                        <svg
+                            class="ml-2 h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 5l7 7-7 7"
+                            />
+                        </svg>
+                    </a>
+
+                {% else %}
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                    >
+                        Get Started
+
+                        <svg
+                            class="ml-2 h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 5l7 7-7 7"
+                            />
+                        </svg>
+                    </a>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+                    >
+                        Log In
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Dashboard Preview -->
+        <div class="relative">
+
+            <div class="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-indigo-100 to-slate-100 blur-2xl"></div>
+
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+
+                <!-- Fake Window Header -->
+                <div class="flex items-center gap-2 border-b border-slate-100 px-5 py-4">
+
+                    <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                    <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                    <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+
+                    <span class="ml-3 text-xs font-medium text-slate-400">
+                        Dashboard
+                    </span>
+
+                </div>
+
+
+                <div class="p-6">
+
+                    <div class="mb-6">
+
+                        <p class="text-sm text-slate-500">
+                            Monthly overview
+                        </p>
+
+                        <h2 class="mt-1 text-xl font-semibold text-slate-900">
+                            Your finances at a glance
+                        </h2>
+
+                    </div>
+
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <div class="rounded-xl bg-slate-50 p-4">
+
+                            <p class="text-xs font-medium text-slate-500">
+                                Income
+                            </p>
+
+                            <p class="mt-2 text-xl font-bold text-emerald-600">
+                                $3,250
+                            </p>
+
+                        </div>
+
+
+                        <div class="rounded-xl bg-slate-50 p-4">
+
+                            <p class="text-xs font-medium text-slate-500">
+                                Expenses
+                            </p>
+
+                            <p class="mt-2 text-xl font-bold text-slate-900">
+                                $1,840
+                            </p>
+
+                        </div>
+
+
+                        <div class="rounded-xl bg-slate-50 p-4">
+
+                            <p class="text-xs font-medium text-slate-500">
+                                Remaining
+                            </p>
+
+                            <p class="mt-2 text-xl font-bold text-indigo-600">
+                                $1,410
+                            </p>
+
+                        </div>
+
+
+                        <div class="rounded-xl bg-slate-50 p-4">
+
+                            <p class="text-xs font-medium text-slate-500">
+                                Budget Used
+                            </p>
+
+                            <p class="mt-2 text-xl font-bold text-slate-900">
+                                61%
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Budget -->
+                    <div class="mt-5 rounded-xl border border-slate-100 p-4">
+
+                        <div class="mb-2 flex items-center justify-between">
+
+                            <span class="text-sm font-medium text-slate-700">
+                                Monthly Budget
+                            </span>
+
+                            <span class="text-xs text-slate-500">
+                                $1,840 / $3,000
+                            </span>
+
+                        </div>
+
+                        <div class="h-2 overflow-hidden rounded-full bg-slate-100">
+
+                            <div class="h-full w-3/5 rounded-full bg-indigo-600"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Transactions -->
+                    <div class="mt-5">
+
+                        <div class="mb-3 flex items-center justify-between">
+
+                            <p class="text-sm font-semibold text-slate-900">
+                                Recent Transactions
+                            </p>
+
+                            <span class="text-xs font-medium text-indigo-600">
+                                View all
+                            </span>
+
+                        </div>
+
+
+                        <div class="space-y-2">
+
+                            <div class="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-3">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-100 text-sm font-semibold text-indigo-700">
+                                        G
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-800">
+                                            Groceries
+                                        </p>
+
+                                        <p class="text-xs text-slate-500">
+                                            Food
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <span class="text-sm font-semibold text-slate-700">
+                                    -$64.20
+                                </span>
+
+                            </div>
+
+
+                            <div class="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-3">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-100 text-sm font-semibold text-emerald-700">
+                                        P
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-800">
+                                            Paycheck
+                                        </p>
+
+                                        <p class="text-xs text-slate-500">
+                                            Income
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <span class="text-sm font-semibold text-emerald-600">
+                                    +$1,625.00
+                                </span>
+
+                            </div>
+
+
+                            <div class="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-3">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-100 text-sm font-semibold text-amber-700">
+                                        T
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-800">
+                                            Transportation
+                                        </p>
+
+                                        <p class="text-xs text-slate-500">
+                                            Travel
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <span class="text-sm font-semibold text-slate-700">
+                                    -$42.75
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
 </section>
 
-<section class="grid">
-    <article class="card">
-        <h2>Simple Structure</h2>
-        <p>Reusable templates make it easier to add pages without repeating layout code.</p>
-    </article>
 
-    <article class="card">
-        <h2>Team Friendly</h2>
-        <p>Everyone can work from the same base layout and keep the project consistent.</p>
-    </article>
+<!-- Features -->
+<section class="border-t border-slate-200 py-16">
 
-    <article class="card">
-        <h2>Easy To Change</h2>
-        <p>The design is intentionally simple so your team can adapt it later.</p>
-    </article>
+    <div class="mb-10 max-w-2xl">
+
+        <p class="text-sm font-semibold uppercase tracking-wider text-indigo-600">
+            Everything in one place
+        </p>
+
+        <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">
+            Simple tools for everyday finances
+        </h2>
+
+        <p class="mt-3 text-slate-600">
+            Expense Tracker focuses on the information you need to understand
+            your spending without making personal finance complicated.
+        </p>
+
+    </div>
+
+
+    <div class="grid gap-6 md:grid-cols-3">
+
+        <!-- Feature 1 -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+            <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
+
+                <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 14l2 2 4-4m6-4a12 12 0 01-9 11.5A12 12 0 013 8a12 12 0 009-5 12 12 0 009 5z"
+                    />
+                </svg>
+
+            </div>
+
+            <h3 class="text-lg font-semibold text-slate-900">
+                Track Transactions
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-slate-600">
+                Record income and expenses and organize each transaction
+                into useful categories.
+            </p>
+
+        </div>
+
+
+        <!-- Feature 2 -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+            <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+
+                <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                </svg>
+
+            </div>
+
+            <h3 class="text-lg font-semibold text-slate-900">
+                Manage Budgets
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-slate-600">
+                Set spending limits and quickly see how much of your
+                monthly budget has already been used.
+            </p>
+
+        </div>
+
+
+        <!-- Feature 3 -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+            <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+
+                <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 3v18h18M7 16l4-4 3 3 5-7"
+                    />
+                </svg>
+
+            </div>
+
+            <h3 class="text-lg font-semibold text-slate-900">
+                Understand Spending
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-slate-600">
+                Use dashboard summaries and category breakdowns to see
+                where your money is going.
+            </p>
+
+        </div>
+
+    </div>
+
 </section>
+
+
+<!-- CTA -->
+<section class="pb-16">
+
+    <div class="overflow-hidden rounded-2xl bg-slate-900 px-6 py-10 sm:px-10 sm:py-12">
+
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+
+            <div>
+
+                <h2 class="text-2xl font-bold text-white sm:text-3xl">
+                    Start keeping track of your finances.
+                </h2>
+
+                <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+                    Add transactions, organize expenses, build a budget,
+                    and get a clearer view of your money.
+                </p>
+
+            </div>
+
+
+            <div class="shrink-0">
+
+                {% if user.is_authenticated %}
+
+                    <a
+                        href="{% url 'expenses:dashboard' %}"
+                        class="inline-flex rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100"
+                    >
+                        View Dashboard
+                    </a>
+
+                {% else %}
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="inline-flex rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100"
+                    >
+                        Create an Account
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 {% endblock %}

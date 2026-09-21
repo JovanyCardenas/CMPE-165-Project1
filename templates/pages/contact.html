@@ -1,55 +1,207 @@
 {% extends "base.html" %}
 
-{% block title %}Contact | Student Project{% endblock %}
+{% block title %}Contact | Expense Tracker{% endblock %}
 
 {% block content %}
-<section class="content-section">
-    <p class="eyebrow">Contact</p>
-    <h1>Contact The Team</h1>
-    <p>
-        Have a question, suggestion, or issue with the project? Reach out to one
-        of the team members below.
-    </p>
-</section>
 
-<section class="grid">
-    <article class="card">
-        <h2>Jovany Cardenas Vargas</h2>
-        <p>SJSU Junior...</p>
-        <p><strong>Email:</strong> <a href="mailto:jovany.cardenasvargas@sjsu.edu">jovany.cardenasvargas@sjsu.edu</a></p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/JovanyCardenas" target="_blank">JovanyCardenas</a></p>
-    </article>
+<div class="mx-auto max-w-5xl">
 
-    <article class="card">
-        <h2>Terence Aung</h2>
-        <p>ABOUT ME</p>
-        <p><strong>Email:</strong> Add email here</p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/terenceaung-creator" target="_blank">terenceaung-creator</a></p>
-    </article>
+    <!-- Header -->
+    <div class="mb-10 text-center">
 
-    <article class="card">
-        <h2>Fawad Afzal</h2>
-        <p>ABOUT ME</p>
-        <p><strong>Email:</strong> Add email here</p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/fawad21" target="_blank">fawad21</a></p>
-    </article>
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            Contact Us
+        </h1>
 
-    <article class="card">
-        <h2>Aman Bose</h2>
-        <p>ABOUT ME</p>
-        <p><strong>Email:</strong> Add email here</p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/aman-bose" target="_blank">aman-bose</a></p>
-    </article>
-</section><br>
+        <p class="mx-auto mt-3 max-w-xl text-base text-slate-600">
+            Have a question, suggestion, or feedback about Expense Tracker?
+            Send us a message.
+        </p>
 
-<section class="content-section">
-    <h2>Project Repository</h2>
-    <p>
-        You can also view the project repository, issues, discussions, and wiki on GitHub.
-    </p>
+    </div>
 
-    <a class="button" href="https://github.com/JovanyCardenas/SE-1-Project" target="_blank" rel="noopener">
-        View GitHub Repository
-    </a>
-</section>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+
+        <!-- Contact Information -->
+        <div class="space-y-5">
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600">
+
+                    <svg
+                        class="h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                    </svg>
+
+                </div>
+
+                <h2 class="font-semibold text-slate-900">
+                    Questions & Feedback
+                </h2>
+
+                <p class="mt-2 text-sm leading-6 text-slate-600">
+                    Let us know if you have feedback about the application
+                    or ideas for improvements.
+                </p>
+
+            </div>
+
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+                <p class="text-sm font-medium text-slate-500">
+                    Project
+                </p>
+
+                <p class="mt-1 font-semibold text-slate-900">
+                    Expense Tracker
+                </p>
+
+                <p class="mt-4 text-sm font-medium text-slate-500">
+                    Course
+                </p>
+
+                <p class="mt-1 text-sm text-slate-700">
+                    SJSU CMPE 165
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-2">
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+
+                <form method="post" class="space-y-6">
+
+                    {% csrf_token %}
+
+
+                    <div class="grid gap-5 sm:grid-cols-2">
+
+                        <!-- Name -->
+                        <div>
+
+                            <label
+                                for="name"
+                                class="block text-sm font-medium text-slate-700"
+                            >
+                                Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                required
+                                placeholder="Your name"
+                                class="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                            >
+
+                        </div>
+
+
+                        <!-- Email -->
+                        <div>
+
+                            <label
+                                for="email"
+                                class="block text-sm font-medium text-slate-700"
+                            >
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                                placeholder="you@example.com"
+                                class="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Subject -->
+                    <div>
+
+                        <label
+                            for="subject"
+                            class="block text-sm font-medium text-slate-700"
+                        >
+                            Subject
+                        </label>
+
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            required
+                            placeholder="What is this about?"
+                            class="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        >
+
+                    </div>
+
+
+                    <!-- Message -->
+                    <div>
+
+                        <label
+                            for="message"
+                            class="block text-sm font-medium text-slate-700"
+                        >
+                            Message
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="6"
+                            required
+                            placeholder="Write your message..."
+                            class="mt-2 block w-full resize-y rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="flex justify-end">
+
+                        <button
+                            type="submit"
+                            class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                        >
+                            Send Message
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

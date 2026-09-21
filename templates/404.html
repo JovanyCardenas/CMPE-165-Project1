@@ -1,13 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}Page Not Found | Student Project{% endblock %}
+{% block title %}Page Not Found | Expense Tracker{% endblock %}
 
 {% block content %}
-<section class="content-section error-page">
-    <p class="eyebrow">404 Error</p>
-    <h1>Page not found</h1>
-    <p>The page you are looking for does not exist or may have been moved.</p>
 
-    <a class="button" href="{% url 'home' %}">Go Home</a>
-</section>
+<div class="flex min-h-[60vh] items-center justify-center">
+
+    <div class="max-w-lg text-center">
+
+        <p class="text-7xl font-bold tracking-tight text-indigo-100">
+            404
+        </p>
+
+        <h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-900">
+            Page not found
+        </h1>
+
+        <p class="mx-auto mt-4 max-w-md text-base leading-7 text-slate-600">
+            The page you're looking for doesn't exist, may have been moved,
+            or the address may be incorrect.
+        </p>
+
+
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+
+            <a
+                href="{% url 'home' %}"
+                class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+            >
+                Go Home
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a
+                    href="{% url 'expenses:dashboard' %}"
+                    class="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+                >
+                    Dashboard
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

@@ -131,4 +131,4 @@ def settings(request):
 
 @login_required
 def dashboard(request):
-    return render(request, "pages/dashboard.html")
+    return render(request, "expenses/dashboard.html")
