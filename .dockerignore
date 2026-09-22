@@ -1,9 +1,48 @@
-.venv/
-__pycache__/
-*.pyc
-.git/
+# Git
+.git
 .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Django / local data
 db.sqlite3
+*.sqlite3
+
+# Environment variables / secrets
 .env
-.DS_Store
+.env.*
+!.env.example
+
+# Static collection output
+staticfiles/
+
+# User-generated files
 media/
+
+# Expense Tracker exports
+exports/
+
+# IDEs
+.idea/
+.vscode/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
