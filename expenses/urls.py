@@ -67,4 +67,6 @@ urlpatterns = [
         name="budget_delete",
     ),
 
+    path("reports/", reports, name="reports"),
+
 ]

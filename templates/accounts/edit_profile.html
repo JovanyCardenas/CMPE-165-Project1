@@ -6,98 +6,130 @@
 
 <div class="mx-auto max-w-2xl">
 
-    <div class="mb-8">
-
-        <h1 class="text-3xl font-bold tracking-tight text-slate-900">
-            Edit Profile
-        </h1>
-
-        <p class="mt-2 text-sm text-slate-600">
-            Update your account information.
-        </p>
-
-    </div>
+    <!-- Back -->
+    <a
+        href="{% url 'profile' %}"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-indigo-600"
+    >
+        ← Back to Profile
+    </a>
 
 
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div class="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
 
-        <form
-            method="post"
-            enctype="multipart/form-data"
-            class="space-y-6"
-        >
+        <!-- Header -->
+        <div class="border-b border-slate-200 p-6 sm:p-8">
+
+            <p class="text-sm font-medium text-indigo-600">
+                Account
+            </p>
+
+            <h1 class="mt-1 text-2xl font-bold text-slate-900">
+                Edit Profile
+            </h1>
+
+            <p class="mt-2 text-sm text-slate-500">
+                Update the personal information associated with your account.
+            </p>
+
+        </div>
+
+
+        <!-- Form -->
+        <form method="post" class="p-6 sm:p-8">
 
             {% csrf_token %}
 
 
             {% if form.non_field_errors %}
 
-                <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-
-                    {% for error in form.non_field_errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-
+                <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                    {{ form.non_field_errors }}
                 </div>
 
             {% endif %}
 
 
-            {% for field in form %}
+            <div class="space-y-5">
 
+                <!-- First Name -->
                 <div>
 
                     <label
-                        for="{{ field.id_for_label }}"
-                        class="block text-sm font-medium text-slate-700"
+                        for="{{ form.first_name.id_for_label }}"
+                        class="mb-2 block text-sm font-semibold text-slate-700"
                     >
-                        {{ field.label }}
+                        First Name
                     </label>
 
+                    {{ form.first_name }}
 
-                    <div class="mt-2 [&_input]:block [&_input]:w-full [&_input]:rounded-lg [&_input]:border [&_input]:border-slate-300 [&_input]:px-3 [&_input]:py-2.5 [&_input]:text-sm [&_input]:shadow-sm [&_input]:outline-none [&_input]:focus:border-indigo-500 [&_input]:focus:ring-2 [&_input]:focus:ring-indigo-500/20
-                                [&_textarea]:block [&_textarea]:w-full [&_textarea]:rounded-lg [&_textarea]:border [&_textarea]:border-slate-300 [&_textarea]:px-3 [&_textarea]:py-2.5 [&_textarea]:text-sm [&_textarea]:shadow-sm [&_textarea]:outline-none [&_textarea]:focus:border-indigo-500 [&_textarea]:focus:ring-2 [&_textarea]:focus:ring-indigo-500/20
-                                [&_select]:block [&_select]:w-full [&_select]:rounded-lg [&_select]:border [&_select]:border-slate-300 [&_select]:bg-white [&_select]:px-3 [&_select]:py-2.5 [&_select]:text-sm [&_select]:shadow-sm">
-
-                        {{ field }}
-
-                    </div>
-
-
-                    {% if field.help_text %}
-
-                        <p class="mt-1.5 text-xs text-slate-500">
-                            {{ field.help_text|safe }}
-                        </p>
-
-                    {% endif %}
-
-
-                    {% for error in field.errors %}
-
-                        <p class="mt-1.5 text-sm text-red-600">
+                    {% for error in form.first_name.errors %}
+                        <p class="mt-1 text-xs text-red-600">
                             {{ error }}
                         </p>
-
                     {% endfor %}
 
                 </div>
 
-            {% endfor %}
+
+                <!-- Last Name -->
+                <div>
+
+                    <label
+                        for="{{ form.last_name.id_for_label }}"
+                        class="mb-2 block text-sm font-semibold text-slate-700"
+                    >
+                        Last Name
+                    </label>
+
+                    {{ form.last_name }}
+
+                    {% for error in form.last_name.errors %}
+                        <p class="mt-1 text-xs text-red-600">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
 
 
-            <div class="flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end">
+                <!-- Email -->
+                <div>
+
+                    <label
+                        for="{{ form.email.id_for_label }}"
+                        class="mb-2 block text-sm font-semibold text-slate-700"
+                    >
+                        Email Address
+                    </label>
+
+                    {{ form.email }}
+
+                    {% for error in form.email.errors %}
+                        <p class="mt-1 text-xs text-red-600">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="mt-8 flex flex-wrap justify-end gap-3 border-t border-slate-100 pt-6">
 
                 <a
                     href="{% url 'profile' %}"
-                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+                    class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
                 >
                     Cancel
                 </a>
 
                 <button
                     type="submit"
-                    class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                    class="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
                 >
                     Save Changes
                 </button>

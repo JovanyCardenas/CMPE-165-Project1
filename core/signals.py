@@ -4,28 +4,53 @@ from .models import FeatureToggle, SystemSetting
 
 DEFAULT_TOGGLES = [
     {
-        "name": "Academic Planner & Calendar",
-        "slug": "enable_academic_planner",
+        "name": "Budget Management",
+        "slug": "enable_budgets",
         "is_active": True,
     },
     {
-        "name": "Student Education Plan (CSEP)",
-        "slug": "enable_sep",
+        "name": "Financial Reports & Insights",
+        "slug": "enable_reports",
         "is_active": True,
     },
     {
-        "name": "Course Resource Hub",
-        "slug": "enable_hub",
+        "name": "Transaction Filtering & Search",
+        "slug": "enable_transaction_filters",
         "is_active": True,
     },
     {
-        "name": "Syllabus Auto-Parser",
-        "slug": "enable_syllabus_parser",
+        "name": "Financial Dashboard",
+        "slug": "enable_financial_dashboard",
+        "is_active": True,
+    },
+    {
+        "name": "Spending Analytics",
+        "slug": "enable_spending_analytics",
+        "is_active": True,
+    },
+    {
+        "name": "Recurring Transactions",
+        "slug": "enable_recurring_transactions",
         "is_active": False,
     },
     {
-        "name": "Household Demo Module",
-        "slug": "households",
+        "name": "Savings Goals",
+        "slug": "enable_savings_goals",
+        "is_active": False,
+    },
+    {
+        "name": "Receipt Uploads",
+        "slug": "enable_receipt_uploads",
+        "is_active": False,
+    },
+    {
+        "name": "Bank Account Integration",
+        "slug": "enable_bank_integration",
+        "is_active": False,
+    },
+    {
+        "name": "AI Financial Insights",
+        "slug": "enable_ai_insights",
         "is_active": False,
     },
 ]

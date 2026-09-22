@@ -1,165 +1,476 @@
 {% extends "base.html" %}
 
-{% block title %}Admin Tools | Superuser Dashboard{% endblock %}
-
-{% block extra_head %}
-<script>
-    tailwind = { config: { corePlugins: { preflight: false } } }
-</script>
-<script src="https://cdn.tailwindcss.com"></script>
-{% endblock %}
+{% block title %}Admin Tools | Expense Tracker{% endblock %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto py-8 px-4 space-y-8 text-slate-800 antialiased">
-    <div class="border-b border-slate-200 pb-4">
-        <h1 class="text-3xl font-extrabold text-slate-900">Admin Control Center</h1>
-        <p class="text-sm text-slate-500 mt-1">Manage global system availability, broadcasts, and member sessions.</p>
+
+<div class="mx-auto max-w-6xl space-y-8 px-4 py-8 text-slate-800">
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+    <div class="flex flex-col gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+
+        <div>
+            <div class="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
+                Staff Controls
+            </div>
+
+            <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900">
+                Admin Control Center
+            </h1>
+
+            <p class="mt-1 text-sm text-slate-500">
+                Manage application availability, announcements, feature configuration, and user sessions.
+            </p>
+        </div>
+
+
+        <a
+            href="{% url 'feature_toggle' %}"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+        >
+            Manage Feature Flags
+        </a>
+
     </div>
 
-    <!-- Grid: Maintenance & Site Banner -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- Maintenance Mode Card -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 class="text-lg font-bold text-slate-900">Maintenance Mode</h2>
-            <p class="text-xs text-slate-500 mb-4">Locks non-staff users out with an announcement screen.</p>
-            
-            <form method="post" class="space-y-4">
-                {% csrf_token %}
-                <input type="hidden" name="action" value="update_maintenance">
 
-                <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" name="maintenance_mode" value="1" {% if system_setting.maintenance_mode %}checked{% endif %} class="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
-                    <span class="text-sm font-semibold text-slate-900">Enable Maintenance Mode</span>
-                </label>
+    <!-- =========================================================
+         SYSTEM CONTROLS
+    ========================================================== -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+        <!-- Maintenance Mode -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+            <div class="mb-5 flex items-start justify-between gap-4">
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Lockout Message</label>
-                    <textarea name="maintenance_message" rows="3" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-blue-500 focus:outline-none">{{ system_setting.maintenance_message }}</textarea>
+                    <h2 class="text-lg font-bold text-slate-900">
+                        Maintenance Mode
+                    </h2>
+
+                    <p class="mt-1 text-xs leading-5 text-slate-500">
+                        Temporarily prevent non-staff users from accessing the Expense Tracker.
+                    </p>
                 </div>
 
-                <button type="submit" class="rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800">
-                    Save Maintenance Status
+
+                {% if system_setting.maintenance_mode %}
+
+                    <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                        Active
+                    </span>
+
+                {% else %}
+
+                    <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                        Online
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <form method="post" class="space-y-4">
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="action"
+                    value="update_maintenance"
+                >
+
+
+                <label class="flex cursor-pointer items-center gap-3">
+
+                    <input
+                        type="checkbox"
+                        name="maintenance_mode"
+                        value="1"
+                        {% if system_setting.maintenance_mode %}checked{% endif %}
+                        class="h-5 w-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    >
+
+                    <span class="text-sm font-semibold text-slate-900">
+                        Enable Maintenance Mode
+                    </span>
+
+                </label>
+
+
+                <div>
+
+                    <label
+                        for="maintenance_message"
+                        class="mb-1.5 block text-xs font-semibold text-slate-600"
+                    >
+                        Maintenance Message
+                    </label>
+
+                    <textarea
+                        id="maintenance_message"
+                        name="maintenance_message"
+                        rows="3"
+                        class="w-full rounded-xl border border-slate-300 p-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        placeholder="Expense Tracker is temporarily unavailable while maintenance is being performed."
+                    >{{ system_setting.maintenance_message }}</textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-800"
+                >
+                    Save Maintenance Settings
                 </button>
+
             </form>
+
         </div>
 
-        <!-- Site Banners Card -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between">
+
+        <!-- =====================================================
+             GLOBAL BANNERS
+        ====================================================== -->
+        <div class="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
             <div>
-                <h2 class="text-lg font-bold text-slate-900">Publish Global Banner</h2>
-                <p class="text-xs text-slate-500 mb-4">Displays across all pages above navigation.</p>
+
+                <h2 class="text-lg font-bold text-slate-900">
+                    Global Announcements
+                </h2>
+
+                <p class="mb-4 mt-1 text-xs leading-5 text-slate-500">
+                    Publish notices that appear throughout the Expense Tracker.
+                </p>
+
 
                 <form method="post" class="space-y-3">
+
                     {% csrf_token %}
-                    <input type="hidden" name="action" value="create_banner">
 
-                    <div>
-                        <input type="text" name="message" placeholder="Notice message..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none" required>
-                    </div>
+                    <input
+                        type="hidden"
+                        name="action"
+                        value="create_banner"
+                    >
 
-                    <div class="flex gap-3">
-                        <select name="banner_type" class="rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-700 bg-white focus:outline-none">
-                            <option value="info">Info (Blue)</option>
-                            <option value="warning">Warning (Amber)</option>
-                            <option value="danger">Critical (Red)</option>
-                            <option value="success">Success (Green)</option>
+
+                    <input
+                        type="text"
+                        name="message"
+                        placeholder="Enter announcement..."
+                        required
+                        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    >
+
+
+                    <div class="flex flex-col gap-3 sm:flex-row">
+
+                        <select
+                            name="banner_type"
+                            class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        >
+                            <option value="info">
+                                Information
+                            </option>
+
+                            <option value="warning">
+                                Warning
+                            </option>
+
+                            <option value="danger">
+                                Critical
+                            </option>
+
+                            <option value="success">
+                                Success
+                            </option>
                         </select>
-                        <button type="submit" class="rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-500">
-                            Post Banner
+
+
+                        <button
+                            type="submit"
+                            class="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-indigo-700"
+                        >
+                            Publish Banner
                         </button>
+
                     </div>
+
                 </form>
+
             </div>
 
-            <!-- Existing Banners List -->
-            <div class="mt-6 pt-4 border-t border-slate-100 space-y-2">
-                <span class="text-xs font-bold text-slate-400 uppercase">Recent Banners</span>
+
+            <!-- Existing Banners -->
+            <div class="mt-6 space-y-2 border-t border-slate-100 pt-4">
+
+                <span class="text-xs font-bold uppercase tracking-wide text-slate-400">
+                    Recent Announcements
+                </span>
+
+
                 {% for banner in banners|slice:":3" %}
-                    <div class="flex items-center justify-between text-xs py-1.5">
-                        <span class="truncate max-w-[240px] text-slate-700">{{ banner.message }}</span>
-                        <form method="post" class="inline">
+
+                    <div class="flex items-center justify-between gap-4 py-1.5 text-xs">
+
+                        <div class="min-w-0">
+
+                            <span class="block truncate text-slate-700">
+                                {{ banner.message }}
+                            </span>
+
+                            <span class="text-[11px] uppercase tracking-wide text-slate-400">
+                                {{ banner.banner_type }}
+                            </span>
+
+                        </div>
+
+
+                        <form method="post" class="inline shrink-0">
+
                             {% csrf_token %}
-                            <input type="hidden" name="action" value="toggle_banner">
-                            <input type="hidden" name="banner_id" value="{{ banner.id }}">
-                            <button type="submit" class="font-semibold {% if banner.is_active %}text-rose-600{% else %}text-slate-400{% endif %}">
-                                {% if banner.is_active %}Deactivate{% else %}Activate{% endif %}
+
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="toggle_banner"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="banner_id"
+                                value="{{ banner.id }}"
+                            >
+
+
+                            <button
+                                type="submit"
+                                class="font-semibold transition
+                                {% if banner.is_active %}
+                                    text-rose-600 hover:text-rose-700
+                                {% else %}
+                                    text-emerald-600 hover:text-emerald-700
+                                {% endif %}"
+                            >
+                                {% if banner.is_active %}
+                                    Deactivate
+                                {% else %}
+                                    Activate
+                                {% endif %}
                             </button>
+
                         </form>
+
                     </div>
+
+
                 {% empty %}
-                    <p class="text-xs text-slate-400">No active banners.</p>
+
+                    <p class="text-xs text-slate-400">
+                        No announcements have been created.
+                    </p>
+
                 {% endfor %}
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- System Utilities & Seeding Card -->
-<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-    <div class="flex items-center justify-between">
-        <div>
-            <h2 class="text-lg font-bold text-slate-900">Database Seeds & Utilities</h2>
-            <p class="text-xs text-slate-500">Run essential management commands without terminal or SSH access.</p>
-        </div>
-        <span class="rounded-xl bg-indigo-50 p-2 text-indigo-600">
-            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-            </svg>
-        </span>
-    </div>
 
-    <div class="mt-5 space-y-4">
-        <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-4">
-            <div>
-                <p class="text-sm font-semibold text-slate-900">Restore Default Feature Flags</p>
-                <p class="text-xs text-slate-500">Inserts missing flags (`enable_planner`, `enable_sep`, `enable_hub`) if absent.</p>
-            </div>
-            <form method="post">
-                {% csrf_token %}
-                <input type="hidden" name="action" value="seed_default_toggles">
-                <button type="submit" class="rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-slate-800">
-                    Sync Defaults
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
-
-    <!-- User Impersonation Card -->
+    <!-- =========================================================
+         SYSTEM UTILITIES
+    ========================================================== -->
     <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 class="text-lg font-bold text-slate-900">User Impersonation ("Login As")</h2>
-        <p class="text-xs text-slate-500 mb-4">Diagnose issues by viewing the app as any household member.</p>
+
+        <div class="flex items-center justify-between gap-4">
+
+            <div>
+
+                <h2 class="text-lg font-bold text-slate-900">
+                    System Utilities
+                </h2>
+
+                <p class="mt-1 text-xs text-slate-500">
+                    Maintain default application configuration and system data.
+                </p>
+
+            </div>
+
+
+            <span class="rounded-xl bg-indigo-50 p-2 text-indigo-600">
+
+                <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+                    />
+                </svg>
+
+            </span>
+
+        </div>
+
+
+        <div class="mt-5">
+
+            <div class="flex flex-col gap-4 rounded-xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+
+                <div>
+
+                    <p class="text-sm font-semibold text-slate-900">
+                        Restore Default Feature Flags
+                    </p>
+
+                    <p class="mt-1 max-w-2xl text-xs leading-5 text-slate-500">
+                        Restores any missing default Expense Tracker feature flags,
+                        including dashboard, budgets, transaction filtering, reports,
+                        analytics, and planned future features.
+                    </p>
+
+                </div>
+
+
+                <form method="post" class="shrink-0">
+
+                    {% csrf_token %}
+
+                    <input
+                        type="hidden"
+                        name="action"
+                        value="seed_default_toggles"
+                    >
+
+                    <button
+                        type="submit"
+                        class="rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                    >
+                        Sync Defaults
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         USER IMPERSONATION
+    ========================================================== -->
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+        <div class="mb-5">
+
+            <h2 class="text-lg font-bold text-slate-900">
+                User Impersonation
+            </h2>
+
+            <p class="mt-1 text-xs leading-5 text-slate-500">
+                Temporarily view the Expense Tracker as another user for testing and troubleshooting.
+            </p>
+
+        </div>
+
 
         <div class="overflow-x-auto">
+
             <table class="w-full text-left text-sm">
+
                 <thead>
-                    <tr class="border-b border-slate-100 text-xs font-semibold text-slate-400 uppercase">
-                        <th class="py-2">User</th>
-                        <th class="py-2">Email</th>
-                        <th class="py-2">Joined</th>
-                        <th class="py-2 text-right">Action</th>
+                    <tr class="border-b border-slate-100 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                        <th class="py-2">
+                            User
+                        </th>
+
+                        <th class="py-2">
+                            Email
+                        </th>
+
+                        <th class="py-2">
+                            Joined
+                        </th>
+
+                        <th class="py-2 text-right">
+                            Action
+                        </th>
                     </tr>
                 </thead>
+
+
                 <tbody class="divide-y divide-slate-100">
+
                     {% for u in recent_users %}
-                    <tr>
-                        <td class="py-2.5 font-semibold text-slate-900">{{ u.username }}</td>
-                        <td class="py-2.5 text-xs text-slate-500">{{ u.email|default:"No email" }}</td>
-                        <td class="py-2.5 text-xs text-slate-400">{{ u.date_joined|date:"M d, Y" }}</td>
-                        <td class="py-2.5 text-right">
-                            <a href="{% url 'impersonate_user' u.id %}" class="rounded-lg bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-200">
-                                Login As &rarr;
-                            </a>
-                        </td>
-                    </tr>
+
+                        <tr>
+
+                            <td class="py-3 font-semibold text-slate-900">
+                                {{ u.username }}
+                            </td>
+
+                            <td class="py-3 text-xs text-slate-500">
+                                {{ u.email|default:"No email" }}
+                            </td>
+
+                            <td class="py-3 text-xs text-slate-400">
+                                {{ u.date_joined|date:"M d, Y" }}
+                            </td>
+
+                            <td class="py-3 text-right">
+
+                                <a
+                                    href="{% url 'impersonate_user' u.id %}"
+                                    class="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-200"
+                                >
+                                    Login As →
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
                     {% empty %}
-                    <tr>
-                        <td colspan="4" class="py-4 text-center text-xs text-slate-400">No other users registered.</td>
-                    </tr>
+
+                        <tr>
+                            <td
+                                colspan="4"
+                                class="py-8 text-center text-xs text-slate-400"
+                            >
+                                No other users are currently registered.
+                            </td>
+                        </tr>
+
                     {% endfor %}
+
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
+
 </div>
+
 {% endblock %}

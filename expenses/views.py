@@ -569,3 +569,164 @@ def budget_delete(request, pk):
             "budget": budget,
         },
     )
+
+@login_required
+def reports(request):
+    ensure_default_categories(request.user)
+
+    today = timezone.localdate()
+
+    # ---------------------------------------------------------
+    # Month selection
+    # ---------------------------------------------------------
+    selected_month = request.GET.get(
+        "month",
+        today.strftime("%Y-%m")
+    )
+
+    try:
+        selected_year, selected_month_number = map(
+            int,
+            selected_month.split("-")
+        )
+
+        report_month = date(
+            selected_year,
+            selected_month_number,
+            1,
+        )
+
+    except (ValueError, TypeError):
+        report_month = today.replace(day=1)
+        selected_month = report_month.strftime("%Y-%m")
+
+    # ---------------------------------------------------------
+    # Month dropdown choices
+    # ---------------------------------------------------------
+    month_choices = []
+
+    for offset in range(-12, 13):
+        year = today.year
+        month_number = today.month + offset
+
+        while month_number > 12:
+            month_number -= 12
+            year += 1
+
+        while month_number < 1:
+            month_number += 12
+            year -= 1
+
+        month_date = date(
+            year,
+            month_number,
+            1,
+        )
+
+        month_choices.append({
+            "value": month_date.strftime("%Y-%m"),
+            "label": month_date.strftime("%B %Y"),
+        })
+
+    # ---------------------------------------------------------
+    # Transactions for selected month
+    # ---------------------------------------------------------
+    transactions = (
+        Transaction.objects
+        .filter(
+            user=request.user,
+            date__year=report_month.year,
+            date__month=report_month.month,
+        )
+        .select_related("category")
+    )
+
+    income_transactions = transactions.filter(
+        transaction_type=Transaction.INCOME
+    )
+
+    expense_transactions = transactions.filter(
+        transaction_type=Transaction.EXPENSE
+    )
+
+    total_income = (
+        income_transactions
+        .aggregate(total=Sum("amount"))["total"]
+        or Decimal("0.00")
+    )
+
+    total_expenses = (
+        expense_transactions
+        .aggregate(total=Sum("amount"))["total"]
+        or Decimal("0.00")
+    )
+
+    net_cash_flow = total_income - total_expenses
+
+    # ---------------------------------------------------------
+    # Savings rate
+    # ---------------------------------------------------------
+    if total_income > 0:
+        savings_rate = (
+            net_cash_flow / total_income
+        ) * 100
+    else:
+        savings_rate = Decimal("0")
+
+    # ---------------------------------------------------------
+    # Category spending
+    # ---------------------------------------------------------
+    category_data = (
+        expense_transactions
+        .filter(category__isnull=False)
+        .values("category__name")
+        .annotate(total=Sum("amount"))
+        .order_by("-total")
+    )
+
+    category_labels = []
+    category_values = []
+
+    for item in category_data:
+        category_labels.append(
+            item["category__name"]
+        )
+
+        category_values.append(
+            float(item["total"])
+        )
+
+    # ---------------------------------------------------------
+    # Largest expense
+    # ---------------------------------------------------------
+    largest_expense = (
+        expense_transactions
+        .order_by("-amount")
+        .first()
+    )
+
+    transaction_count = transactions.count()
+
+    context = {
+        "selected_month": selected_month,
+        "report_month": report_month,
+        "month_choices": month_choices,
+
+        "total_income": total_income,
+        "total_expenses": total_expenses,
+        "net_cash_flow": net_cash_flow,
+        "savings_rate": savings_rate,
+
+        "largest_expense": largest_expense,
+        "transaction_count": transaction_count,
+
+        # Chart data
+        "category_labels": category_labels,
+        "category_values": category_values,
+    }
+
+    return render(
+        request,
+        "expenses/reports.html",
+        context,
+    )

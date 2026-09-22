@@ -4,12 +4,15 @@
 
         <div class="flex h-16 items-center justify-between">
 
-            <!-- Brand -->
+            <!-- =====================================================
+                 BRAND + DESKTOP NAVIGATION
+            ====================================================== -->
             <div class="flex items-center gap-8">
 
+                <!-- Brand -->
                 <a
                     href="{% url 'home' %}"
-                    class="flex items-center gap-3"
+                    class="flex shrink-0 items-center gap-3"
                 >
                     <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-lg font-bold text-white shadow-sm">
                         $
@@ -30,36 +33,85 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden items-center gap-1 md:flex">
 
+                    <!-- Home -->
                     <a
                         href="{% url 'home' %}"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                        class="
+                            rounded-lg px-3 py-2 text-sm font-medium transition
+                            {% if request.resolver_match.url_name == 'home' %}
+                                bg-indigo-50 text-indigo-700
+                            {% else %}
+                                text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                            {% endif %}
+                        "
                     >
                         Home
                     </a>
 
+
                     {% if user.is_authenticated %}
 
+                        <!-- Dashboard -->
                         <a
                             href="{% url 'expenses:dashboard' %}"
-                            class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                            class="
+                                rounded-lg px-3 py-2 text-sm font-medium transition
+                                {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'dashboard' %}
+                                    bg-indigo-50 text-indigo-700
+                                {% else %}
+                                    text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                {% endif %}
+                            "
                         >
                             Dashboard
                         </a>
 
-                        <!-- We'll enable these as we build them -->
 
+                        <!-- Transactions -->
                         <a
                             href="{% url 'expenses:transaction_list' %}"
-                            class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                            class="
+                                rounded-lg px-3 py-2 text-sm font-medium transition
+                                {% if request.resolver_match.namespace == 'expenses' and 'transaction' in request.resolver_match.url_name %}
+                                    bg-indigo-50 text-indigo-700
+                                {% else %}
+                                    text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                {% endif %}
+                            "
                         >
                             Transactions
                         </a>
 
+
+                        <!-- Budgets -->
                         <a
                             href="{% url 'expenses:budget_list' %}"
-                            class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                            class="
+                                rounded-lg px-3 py-2 text-sm font-medium transition
+                                {% if request.resolver_match.namespace == 'expenses' and 'budget' in request.resolver_match.url_name %}
+                                    bg-indigo-50 text-indigo-700
+                                {% else %}
+                                    text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                {% endif %}
+                            "
                         >
                             Budgets
+                        </a>
+
+
+                        <!-- Reports -->
+                        <a
+                            href="{% url 'expenses:reports' %}"
+                            class="
+                                rounded-lg px-3 py-2 text-sm font-medium transition
+                                {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'reports' %}
+                                    bg-indigo-50 text-indigo-700
+                                {% else %}
+                                    text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                {% endif %}
+                            "
+                        >
+                            Reports
                         </a>
 
                     {% endif %}
@@ -69,11 +121,16 @@
             </div>
 
 
-            <!-- Desktop Right Navigation -->
+            <!-- =====================================================
+                 DESKTOP RIGHT NAVIGATION
+            ====================================================== -->
             <div class="hidden items-center gap-2 md:flex">
 
                 {% if user.is_authenticated %}
 
+                    <!-- =================================================
+                         STAFF MENU
+                    ================================================== -->
                     {% if user.is_staff %}
 
                         <div class="relative" data-dropdown>
@@ -81,6 +138,8 @@
                             <button
                                 type="button"
                                 data-dropdown-button
+                                aria-haspopup="true"
+                                aria-expanded="false"
                                 class="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                             >
                                 Staff
@@ -105,26 +164,28 @@
                                 data-dropdown-menu
                                 class="absolute right-0 mt-2 hidden w-52 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg"
                             >
+
                                 <a
                                     href="{% url 'admin:index' %}"
-                                    class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
+                                    class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
                                 >
                                     Django Admin
                                 </a>
 
                                 <a
                                     href="{% url 'feature_toggle' %}"
-                                    class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
+                                    class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
                                 >
                                     Feature Toggles
                                 </a>
 
                                 <a
                                     href="{% url 'admin_tools' %}"
-                                    class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
+                                    class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
                                 >
                                     Admin Tools
                                 </a>
+
                             </div>
 
                         </div>
@@ -132,22 +193,42 @@
                     {% endif %}
 
 
-                    <!-- User Menu -->
+                    <!-- =================================================
+                         USER MENU
+                    ================================================== -->
                     <div class="relative" data-dropdown>
 
                         <button
                             type="button"
                             data-dropdown-button
+                            aria-haspopup="true"
+                            aria-expanded="false"
                             class="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-slate-100"
                         >
 
-                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold text-indigo-700">
-                                {{ user.username|first|upper }}
+                            <!-- Avatar -->
+                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold uppercase text-indigo-700">
+
+                                {% if user.first_name %}
+                                    {{ user.first_name|first|upper }}
+                                {% else %}
+                                    {{ user.username|first|upper }}
+                                {% endif %}
+
                             </div>
 
+
+                            <!-- Username -->
                             <span class="max-w-32 truncate text-sm font-medium text-slate-700">
-                                {{ user.username }}
+
+                                {% if user.first_name %}
+                                    {{ user.first_name }}
+                                {% else %}
+                                    {{ user.username }}
+                                {% endif %}
+
                             </span>
+
 
                             <svg
                                 class="h-4 w-4 text-slate-400"
@@ -166,37 +247,170 @@
                         </button>
 
 
+                        <!-- User Dropdown -->
                         <div
                             data-dropdown-menu
-                            class="absolute right-0 mt-2 hidden w-52 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg"
+                            class="absolute right-0 mt-2 hidden w-60 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg"
                         >
 
-                            <a
-                                href="{% url 'profile' %}"
-                                class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
-                            >
-                                Profile
-                            </a>
+                            <!-- User Information -->
+                            <div class="border-b border-slate-100 px-4 py-3">
 
-                            <a
-                                href="{% url 'settings' %}"
-                                class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
-                            >
-                                Settings
-                            </a>
+                                <p class="truncate text-sm font-semibold text-slate-900">
+                                    {% if user.first_name or user.last_name %}
+                                        {{ user.first_name }} {{ user.last_name }}
+                                    {% else %}
+                                        {{ user.username }}
+                                    {% endif %}
+                                </p>
 
-                            <div class="my-1 border-t border-slate-100"></div>
+                                {% if user.email %}
+                                    <p class="mt-0.5 truncate text-xs text-slate-500">
+                                        {{ user.email }}
+                                    </p>
+                                {% else %}
+                                    <p class="mt-0.5 truncate text-xs text-slate-500">
+                                        @{{ user.username }}
+                                    </p>
+                                {% endif %}
 
-                            <form method="post" action="{% url 'logout' %}">
-                                {% csrf_token %}
+                            </div>
 
-                                <button
-                                    type="submit"
-                                    class="w-full px-4 py-2.5 text-left text-sm font-medium text-red-600 hover:bg-red-50"
+
+                            <div class="py-1">
+
+                                <!-- Profile -->
+                                <a
+                                    href="{% url 'profile' %}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
                                 >
-                                    Log Out
-                                </button>
-                            </form>
+                                    <svg
+                                        class="h-4 w-4 text-slate-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                                        />
+                                    </svg>
+
+                                    Profile
+                                </a>
+
+
+                                <!-- Edit Profile -->
+                                <a
+                                    href="{% url 'edit_profile' %}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                >
+                                    <svg
+                                        class="h-4 w-4 text-slate-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M16.862 3.487a2.1 2.1 0 013 2.97L8.5 17.82 4 19l1.18-4.5L16.862 3.487z"
+                                        />
+                                    </svg>
+
+                                    Edit Profile
+                                </a>
+
+
+                                <!-- Change Password -->
+                                <a
+                                    href="{% url 'password_change' %}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                >
+                                    <svg
+                                        class="h-4 w-4 text-slate-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 11c1.657 0 3-1.343 3-3V7a3 3 0 10-6 0v1c0 1.657 1.343 3 3 3zm6 0H6a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2z"
+                                        />
+                                    </svg>
+
+                                    Change Password
+                                </a>
+
+
+                                <!-- Settings -->
+                                <a
+                                    href="{% url 'settings' %}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                >
+                                    <svg
+                                        class="h-4 w-4 text-slate-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.592c.55 0 1.02.398 1.11.94l.213 1.281a1.125 1.125 0 00.648.843l1.165.582a1.125 1.125 0 001.052-.027l1.155-.578a1.125 1.125 0 011.386.267l1.296 1.296c.389.389.48.986.267 1.386l-.578 1.155a1.125 1.125 0 00-.027 1.052l.582 1.165c.16.32.465.554.843.648l1.281.213c.542.09.94.56.94 1.11v2.592c0 .55-.398 1.02-.94 1.11l-1.281.213a1.125 1.125 0 00-.843.648l-.582 1.165a1.125 1.125 0 00.027 1.052l.578 1.155c.213.4.122.997-.267 1.386l-1.296 1.296a1.125 1.125 0 01-1.386.267l-1.155-.578a1.125 1.125 0 00-1.052-.027l-1.165.582a1.125 1.125 0 00-.648.843l-.213 1.281c-.09.542-.56.94-1.11.94h-2.592c-.55 0-1.02-.398-1.11-.94l-.213-1.281a1.125 1.125 0 00-.648-.843l-1.165-.582a1.125 1.125 0 00-1.052.027l-1.155.578a1.125 1.125 0 01-1.386-.267L2.775 20.4a1.125 1.125 0 01-.267-1.386l.578-1.155a1.125 1.125 0 00.027-1.052l-.582-1.165a1.125 1.125 0 00-.843-.648l-1.281-.213a1.125 1.125 0 01-.94-1.11v-2.592c0-.55.398-1.02.94-1.11l1.281-.213a1.125 1.125 0 00.843-.648l.582-1.165a1.125 1.125 0 00-.027-1.052l-.578-1.155a1.125 1.125 0 01.267-1.386l1.296-1.296a1.125 1.125 0 011.386-.267l1.155.578a1.125 1.125 0 001.052.027l1.165-.582a1.125 1.125 0 00.648-.843l.213-1.281z"
+                                        />
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                    </svg>
+
+                                    Settings
+                                </a>
+
+                            </div>
+
+
+                            <div class="border-t border-slate-100 py-1">
+
+                                <!-- Logout -->
+                                <form
+                                    method="post"
+                                    action="{% url 'logout' %}"
+                                >
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
+                                    >
+                                        <svg
+                                            class="h-4 w-4"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M18 15l3-3m0 0-3-3m3 3H9"
+                                            />
+                                        </svg>
+
+                                        Log Out
+                                    </button>
+                                </form>
+
+                            </div>
 
                         </div>
 
@@ -205,9 +419,10 @@
 
                 {% else %}
 
+                    <!-- Guest Navigation -->
                     <a
                         href="{% url 'about' %}"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
+                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                     >
                         About
                     </a>
@@ -231,12 +446,16 @@
             </div>
 
 
-            <!-- Mobile Button -->
+            <!-- =====================================================
+                 MOBILE MENU BUTTON
+            ====================================================== -->
             <button
                 id="mobile-menu-button"
                 type="button"
-                class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 md:hidden"
                 aria-label="Toggle navigation"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+                class="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 md:hidden"
             >
                 <svg
                     class="h-6 w-6"
@@ -256,7 +475,9 @@
         </div>
 
 
-        <!-- Mobile Navigation -->
+        <!-- =====================================================
+             MOBILE NAVIGATION
+        ====================================================== -->
         <div
             id="mobile-menu"
             class="hidden border-t border-slate-100 py-3 md:hidden"
@@ -264,43 +485,207 @@
 
             <div class="space-y-1">
 
+                <!-- Home -->
                 <a
                     href="{% url 'home' %}"
-                    class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                    class="
+                        block rounded-lg px-3 py-2.5 text-sm font-medium transition
+                        {% if request.resolver_match.url_name == 'home' %}
+                            bg-indigo-50 text-indigo-700
+                        {% else %}
+                            text-slate-700 hover:bg-slate-100
+                        {% endif %}
+                    "
                 >
                     Home
                 </a>
 
+
                 {% if user.is_authenticated %}
 
+                    <!-- Dashboard -->
                     <a
                         href="{% url 'expenses:dashboard' %}"
-                        class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                        class="
+                            block rounded-lg px-3 py-2.5 text-sm font-medium transition
+                            {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'dashboard' %}
+                                bg-indigo-50 text-indigo-700
+                            {% else %}
+                                text-slate-700 hover:bg-slate-100
+                            {% endif %}
+                        "
                     >
                         Dashboard
                     </a>
 
+
+                    <!-- Transactions -->
                     <a
-                        href="#"
-                        class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                        href="{% url 'expenses:transaction_list' %}"
+                        class="
+                            block rounded-lg px-3 py-2.5 text-sm font-medium transition
+                            {% if request.resolver_match.namespace == 'expenses' and 'transaction' in request.resolver_match.url_name %}
+                                bg-indigo-50 text-indigo-700
+                            {% else %}
+                                text-slate-700 hover:bg-slate-100
+                            {% endif %}
+                        "
                     >
                         Transactions
                     </a>
 
+
+                    <!-- Budgets -->
                     <a
-                        href="#"
-                        class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                        href="{% url 'expenses:budget_list' %}"
+                        class="
+                            block rounded-lg px-3 py-2.5 text-sm font-medium transition
+                            {% if request.resolver_match.namespace == 'expenses' and 'budget' in request.resolver_match.url_name %}
+                                bg-indigo-50 text-indigo-700
+                            {% else %}
+                                text-slate-700 hover:bg-slate-100
+                            {% endif %}
+                        "
                     >
                         Budgets
                     </a>
 
+
+                    <!-- Reports -->
+                    <a
+                        href="{% url 'expenses:reports' %}"
+                        class="
+                            block rounded-lg px-3 py-2.5 text-sm font-medium transition
+                            {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'reports' %}
+                                bg-indigo-50 text-indigo-700
+                            {% else %}
+                                text-slate-700 hover:bg-slate-100
+                            {% endif %}
+                        "
+                    >
+                        Reports
+                    </a>
+
+
+                    <!-- Account Divider -->
+                    <div class="my-3 border-t border-slate-100"></div>
+
+
+                    <!-- Mobile User Information -->
+                    <div class="px-3 py-2">
+
+                        <div class="flex items-center gap-3">
+
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold uppercase text-indigo-700">
+
+                                {% if user.first_name %}
+                                    {{ user.first_name|first|upper }}
+                                {% else %}
+                                    {{ user.username|first|upper }}
+                                {% endif %}
+
+                            </div>
+
+                            <div class="min-w-0">
+
+                                <p class="truncate text-sm font-semibold text-slate-900">
+                                    {% if user.first_name or user.last_name %}
+                                        {{ user.first_name }} {{ user.last_name }}
+                                    {% else %}
+                                        {{ user.username }}
+                                    {% endif %}
+                                </p>
+
+                                {% if user.email %}
+                                    <p class="truncate text-xs text-slate-500">
+                                        {{ user.email }}
+                                    </p>
+                                {% else %}
+                                    <p class="truncate text-xs text-slate-500">
+                                        @{{ user.username }}
+                                    </p>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Profile -->
                     <a
                         href="{% url 'profile' %}"
-                        class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                     >
                         Profile
                     </a>
 
+
+                    <!-- Edit Profile -->
+                    <a
+                        href="{% url 'edit_profile' %}"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    >
+                        Edit Profile
+                    </a>
+
+
+                    <!-- Change Password -->
+                    <a
+                        href="{% url 'password_change' %}"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    >
+                        Change Password
+                    </a>
+
+
+                    <!-- Settings -->
+                    <a
+                        href="{% url 'settings' %}"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    >
+                        Settings
+                    </a>
+
+
+                    <!-- Mobile Staff Tools -->
+                    {% if user.is_staff %}
+
+                        <div class="my-3 border-t border-slate-100"></div>
+
+                        <p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                            Staff
+                        </p>
+
+                        <a
+                            href="{% url 'admin:index' %}"
+                            class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        >
+                            Django Admin
+                        </a>
+
+                        <a
+                            href="{% url 'feature_toggle' %}"
+                            class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        >
+                            Feature Toggles
+                        </a>
+
+                        <a
+                            href="{% url 'admin_tools' %}"
+                            class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        >
+                            Admin Tools
+                        </a>
+
+                    {% endif %}
+
+
+                    <div class="my-3 border-t border-slate-100"></div>
+
+
+                    <!-- Logout -->
                     <form
                         method="post"
                         action="{% url 'logout' %}"
@@ -309,31 +694,33 @@
 
                         <button
                             type="submit"
-                            class="block w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
+                            class="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
                         >
                             Log Out
                         </button>
                     </form>
 
+
                 {% else %}
 
+                    <!-- Guest Mobile Navigation -->
                     <a
                         href="{% url 'about' %}"
-                        class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                     >
                         About
                     </a>
 
                     <a
                         href="{% url 'login' %}"
-                        class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                     >
                         Log In
                     </a>
 
                     <a
                         href="{% url 'register' %}"
-                        class="block rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white"
+                        class="mt-2 block rounded-lg bg-indigo-600 px-3 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
                     >
                         Get Started
                     </a>

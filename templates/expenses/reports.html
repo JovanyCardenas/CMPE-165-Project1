@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+
+{% block title %}Reports | Expense Tracker{% endblock %}
+
+{% block content %}
+
+<div class="space-y-6">
+
+    <!-- Header -->
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+
+        <div>
+            <p class="text-sm font-medium text-indigo-600">
+                Financial Insights
+            </p>
+
+            <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+                Reports
+            </h1>
+
+            <p class="mt-2 text-sm text-slate-600">
+                Understand where your money is going each month.
+            </p>
+        </div>
+
+
+        <!-- Month Selector -->
+        <form method="get" class="flex items-end gap-2">
+
+            <div>
+                <label
+                    for="month"
+                    class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >
+                    Report Month
+                </label>
+
+                <select
+                    id="month"
+                    name="month"
+                    class="rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                >
+
+                    {% for month in month_choices %}
+
+                        <option
+                            value="{{ month.value }}"
+                            {% if selected_month == month.value %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ month.label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <button
+                type="submit"
+                class="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+                View
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">
+                Income
+            </p>
+
+            <p class="mt-2 text-2xl font-bold text-emerald-600">
+                +${{ total_income|floatformat:2 }}
+            </p>
+        </div>
+
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">
+                Expenses
+            </p>
+
+            <p class="mt-2 text-2xl font-bold text-red-600">
+                -${{ total_expenses|floatformat:2 }}
+            </p>
+        </div>
+
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">
+                Net Cash Flow
+            </p>
+
+            {% if net_cash_flow >= 0 %}
+                <p class="mt-2 text-2xl font-bold text-emerald-600">
+                    +${{ net_cash_flow|floatformat:2 }}
+                </p>
+            {% else %}
+                <p class="mt-2 text-2xl font-bold text-red-600">
+                    ${{ net_cash_flow|floatformat:2 }}
+                </p>
+            {% endif %}
+        </div>
+
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">
+                Savings Rate
+            </p>
+
+            <p class="mt-2 text-2xl font-bold text-slate-900">
+                {{ savings_rate|floatformat:1 }}%
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Charts -->
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+
+        <!-- Income vs Expenses -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+            <div>
+                <h2 class="font-semibold text-slate-900">
+                    Income vs. Expenses
+                </h2>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Financial activity for {{ report_month|date:"F Y" }}.
+                </p>
+            </div>
+
+            <div class="mt-6 h-72">
+                <canvas id="incomeExpenseChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <!-- Spending by Category -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+            <div>
+                <h2 class="font-semibold text-slate-900">
+                    Spending by Category
+                </h2>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Breakdown of your expenses.
+                </p>
+            </div>
+
+            {% if category_values %}
+
+                <div class="mt-6 h-72">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+
+            {% else %}
+
+                <div class="flex h-72 items-center justify-center">
+                    <p class="text-sm text-slate-500">
+                        No expense data for this month.
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- Additional Insights -->
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+
+            <p class="text-sm text-slate-500">
+                Largest Expense
+            </p>
+
+            {% if largest_expense %}
+
+                <div class="mt-3 flex items-center justify-between gap-4">
+
+                    <div>
+                        <p class="font-semibold text-slate-900">
+                            {{ largest_expense.description }}
+                        </p>
+
+                        <p class="mt-1 text-xs text-slate-500">
+                            {{ largest_expense.date|date:"M j, Y" }}
+
+                            {% if largest_expense.category %}
+                                · {{ largest_expense.category.name }}
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <p class="font-bold text-red-600">
+                        -${{ largest_expense.amount|floatformat:2 }}
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <p class="mt-3 text-sm text-slate-500">
+                    No expenses this month.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+
+            <p class="text-sm text-slate-500">
+                Transactions
+            </p>
+
+            <p class="mt-2 text-2xl font-bold text-slate-900">
+                {{ transaction_count }}
+            </p>
+
+            <p class="mt-1 text-xs text-slate-500">
+                transactions recorded during {{ report_month|date:"F Y" }}
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Safely pass Django data to JavaScript -->
+{{ category_labels|json_script:"category-labels" }}
+{{ category_values|json_script:"category-values" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    const categoryLabels = JSON.parse(
+        document.getElementById("category-labels").textContent
+    );
+
+    const categoryValues = JSON.parse(
+        document.getElementById("category-values").textContent
+    );
+
+
+    // ---------------------------------------------------------
+    // Income vs Expenses
+    // ---------------------------------------------------------
+
+    const incomeExpenseCanvas =
+        document.getElementById("incomeExpenseChart");
+
+    if (incomeExpenseCanvas) {
+
+        new Chart(
+            incomeExpenseCanvas,
+            {
+                type: "bar",
+
+                data: {
+                    labels: [
+                        "Income",
+                        "Expenses"
+                    ],
+
+                    datasets: [
+                        {
+                            label: "Amount ($)",
+
+                            data: [
+                                {{ total_income }},
+                                {{ total_expenses }}
+                            ],
+
+                            backgroundColor: [
+                                "rgba(16, 185, 129, 0.75)",
+                                "rgba(239, 68, 68, 0.75)"
+                            ],
+
+                            borderRadius: 8
+                        }
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+
+                            ticks: {
+                                callback: function(value) {
+                                    return "$" + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+    }
+
+
+    // ---------------------------------------------------------
+    // Category Chart
+    // ---------------------------------------------------------
+
+    const categoryCanvas =
+        document.getElementById("categoryChart");
+
+    if (categoryCanvas) {
+
+        new Chart(
+            categoryCanvas,
+            {
+                type: "doughnut",
+
+                data: {
+                    labels: categoryLabels,
+
+                    datasets: [
+                        {
+                            data: categoryValues,
+
+                            backgroundColor: [
+                                "#4f46e5",
+                                "#7c3aed",
+                                "#2563eb",
+                                "#0891b2",
+                                "#059669",
+                                "#65a30d",
+                                "#ca8a04",
+                                "#ea580c",
+                                "#dc2626",
+                                "#db2777"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    cutout: "65%",
+
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            }
+        );
+
+    }
+
+</script>
+
+{% endblock %}
