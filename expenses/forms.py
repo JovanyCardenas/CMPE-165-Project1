@@ -173,3 +173,46 @@ class BudgetForm(forms.ModelForm):
         )
 
         return date(year, month, 1)
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ["name"]
+
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": INPUT_CLASSES,
+                    "placeholder": "e.g. Travel",
+                    "maxlength": "100",
+                    "autofocus": True,
+                }
+            ),
+        }
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_name(self):
+        name = self.cleaned_data["name"].strip()
+
+        if not name:
+            raise forms.ValidationError("Enter a category name.")
+
+        if self.user:
+            existing = Category.objects.filter(
+                user=self.user,
+                name__iexact=name,
+            )
+
+            if self.instance.pk:
+                existing = existing.exclude(pk=self.instance.pk)
+
+            if existing.exists():
+                raise forms.ValidationError(
+                    "You already have a category with this name."
+                )
+
+        return name

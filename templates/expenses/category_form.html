@@ -1,10 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}{{ page_title }} | Expense Tracker{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto max-w-2xl">
+
+    <!-- Back -->
+    <a
+        href="{% url 'expenses:category_list' %}"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-indigo-600"
+    >
+        ← Back to Categories
+    </a>
+
+
+    <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+
+        <!-- Header -->
+        <div class="border-b border-slate-200 p-6 sm:p-8">
+
+            <p class="text-sm font-semibold text-indigo-600">
+                Categories
+            </p>
+
+            <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+                {{ page_title }}
+            </h1>
+
+            <p class="mt-2 text-sm leading-6 text-slate-500">
+                {{ page_description }}
+            </p>
+
+        </div>
+
+
+        <!-- Form -->
+        <form method="post" class="p-6 sm:p-8">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            <div>
+
+                <label
+                    for="{{ form.name.id_for_label }}"
+                    class="mb-2 block text-sm font-semibold text-slate-700"
+                >
+                    Category Name
+                </label>
+
+                {{ form.name }}
+
+                <p class="mt-2 text-xs text-slate-500">
+                    Use a short descriptive name such as Food, Transportation,
+                    Travel, or Education.
+                </p>
+
+
+                {% for error in form.name.errors %}
+
+                    <p class="mt-2 text-sm font-medium text-red-600">
+                        {{ error }}
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="mt-8 flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end">
+
+                <a
+                    href="{% url 'expenses:category_list' %}"
+                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                >
+                    {{ button_text }}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

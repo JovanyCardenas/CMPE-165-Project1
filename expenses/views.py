@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from datetime import date
@@ -477,19 +477,30 @@ def budget_create(request):
         if form.is_valid():
             budget = form.save(commit=False)
             budget.user = request.user
-            budget.save()
 
-            messages.success(
-                request,
-                "Budget created successfully.",
-            )
+            duplicate_exists = Budget.objects.filter(
+                user=request.user,
+                category=budget.category,
+                month=budget.month,
+            ).exists()
 
-            return redirect("expenses:budget_list")
+            if duplicate_exists:
+                form.add_error(
+                    None,
+                    "You already have a budget for this category and month."
+                )
+            else:
+                budget.save()
+
+                messages.success(
+                    request,
+                    "Budget created successfully."
+                )
+
+                return redirect("expenses:budget_list")
 
     else:
-        form = BudgetForm(
-            user=request.user,
-        )
+        form = BudgetForm(user=request.user)
 
     return render(
         request,
@@ -518,14 +529,34 @@ def budget_update(request, pk):
         )
 
         if form.is_valid():
-            form.save()
+            updated_budget = form.save(commit=False)
+            updated_budget.user = request.user
 
-            messages.success(
-                request,
-                "Budget updated successfully.",
+            duplicate_exists = (
+                Budget.objects
+                .filter(
+                    user=request.user,
+                    category=updated_budget.category,
+                    month=updated_budget.month,
+                )
+                .exclude(pk=budget.pk)
+                .exists()
             )
 
-            return redirect("expenses:budget_list")
+            if duplicate_exists:
+                form.add_error(
+                    None,
+                    "You already have a budget for this category and month."
+                )
+            else:
+                updated_budget.save()
+
+                messages.success(
+                    request,
+                    "Budget updated successfully.",
+                )
+
+                return redirect("expenses:budget_list")
 
     else:
         form = BudgetForm(
@@ -542,7 +573,6 @@ def budget_update(request, pk):
             "button_text": "Save Changes",
         },
     )
-
 
 @login_required
 def budget_delete(request, pk):
@@ -729,4 +759,153 @@ def reports(request):
         request,
         "expenses/reports.html",
         context,
+    )
+
+@login_required
+def category_list(request):
+    ensure_default_categories(request.user)
+
+    categories = (
+        Category.objects
+        .filter(user=request.user)
+        .annotate(
+            transaction_count=Count("transactions")
+        )
+        .order_by("name")
+    )
+
+    return render(
+        request,
+        "expenses/category_list.html",
+        {
+            "categories": categories,
+        },
+    )
+
+
+@login_required
+def category_create(request):
+    ensure_default_categories(request.user)
+
+    if request.method == "POST":
+        form = CategoryForm(
+            request.POST,
+            user=request.user,
+        )
+
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.user = request.user
+            category.save()
+
+            messages.success(
+                request,
+                f'"{category.name}" was added successfully.'
+            )
+
+            return redirect("expenses:category_list")
+
+    else:
+        form = CategoryForm(user=request.user)
+
+    return render(
+        request,
+        "expenses/category_form.html",
+        {
+            "form": form,
+            "page_title": "Add Category",
+            "page_description": "Create a custom category for organizing your transactions.",
+            "button_text": "Add Category",
+        },
+    )
+
+
+@login_required
+def category_update(request, pk):
+    category = get_object_or_404(
+        Category,
+        pk=pk,
+        user=request.user,
+    )
+
+    if request.method == "POST":
+        form = CategoryForm(
+            request.POST,
+            instance=category,
+            user=request.user,
+        )
+
+        if form.is_valid():
+            category = form.save()
+
+            messages.success(
+                request,
+                f'"{category.name}" was updated successfully.'
+            )
+
+            return redirect("expenses:category_list")
+
+    else:
+        form = CategoryForm(
+            instance=category,
+            user=request.user,
+        )
+
+    return render(
+        request,
+        "expenses/category_form.html",
+        {
+            "form": form,
+            "category": category,
+            "page_title": "Edit Category",
+            "page_description": "Update the name of this transaction category.",
+            "button_text": "Save Changes",
+        },
+    )
+
+
+@login_required
+def category_delete(request, pk):
+    category = get_object_or_404(
+        Category,
+        pk=pk,
+        user=request.user,
+    )
+
+    transaction_count = category.transactions.count()
+    budget_count = category.budgets.count()
+
+    if request.method == "POST":
+        category_name = category.name
+
+        # Budgets use CASCADE, so prevent accidental deletion
+        # if this category currently has associated budgets.
+        if budget_count > 0:
+            messages.error(
+                request,
+                f'"{category_name}" cannot be deleted because it has '
+                f'{budget_count} associated budget'
+                f'{"s" if budget_count != 1 else ""}. '
+                f'Delete those budgets first.'
+            )
+
+            return redirect("expenses:category_list")
+
+        category.delete()
+
+        messages.success(
+            request,
+            f'"{category_name}" was deleted successfully.'
+        )
+
+        return redirect("expenses:category_list")
+
+    return render(
+        request,
+        "expenses/category_confirm_delete.html",
+        {
+            "category": category,
+            "transaction_count": transaction_count,
+            "budget_count": budget_count,
+        },
     )

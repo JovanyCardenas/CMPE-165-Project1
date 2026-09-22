@@ -69,4 +69,28 @@ urlpatterns = [
 
     path("reports/", reports, name="reports"),
 
+path(
+    "categories/",
+    category_list,
+    name="category_list",
+),
+
+path(
+    "categories/add/",
+    category_create,
+    name="category_create",
+),
+
+path(
+    "categories/<int:pk>/edit/",
+    category_update,
+    name="category_update",
+),
+
+path(
+    "categories/<int:pk>/delete/",
+    category_delete,
+    name="category_delete",
+),
+
 ]
