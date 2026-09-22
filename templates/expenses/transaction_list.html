@@ -1,10 +1,485 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Transactions | Expense Tracker{% endblock %}
+
+{% block content %}
+
+<div class="space-y-6">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+        <div>
+            <p class="text-sm font-medium text-indigo-600">
+                Financial Activity
+            </p>
+
+            <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+                Transactions
+            </h1>
+
+            <p class="mt-2 text-sm text-slate-600">
+                View, search, filter, and manage your income and expenses.
+            </p>
+        </div>
+
+        <a
+            href="{% url 'expenses:transaction_create' %}"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+        >
+            <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                />
+            </svg>
+
+            Add Transaction
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         FILTERS
+    ====================================================== -->
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+
+        <form method="get">
+
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
+
+                <!-- Search -->
+                <div class="xl:col-span-2">
+
+                    <label
+                        for="search"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                    >
+                        Search
+                    </label>
+
+                    <input
+                        type="text"
+                        id="search"
+                        name="search"
+                        value="{{ search }}"
+                        placeholder="Description or notes..."
+                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    >
+
+                </div>
+
+
+                <!-- Type -->
+                <div>
+
+                    <label
+                        for="type"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                    >
+                        Type
+                    </label>
+
+                    <select
+                        id="type"
+                        name="type"
+                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    >
+
+                        <option value="">
+                            All Types
+                        </option>
+
+                        <option
+                            value="income"
+                            {% if selected_type == "income" %}selected{% endif %}
+                        >
+                            Income
+                        </option>
+
+                        <option
+                            value="expense"
+                            {% if selected_type == "expense" %}selected{% endif %}
+                        >
+                            Expense
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Category -->
+                <div>
+
+                    <label
+                        for="category"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                    >
+                        Category
+                    </label>
+
+                    <select
+                        id="category"
+                        name="category"
+                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    >
+
+                        <option value="">
+                            All Categories
+                        </option>
+
+                        {% for category in categories %}
+
+                            <option
+                                value="{{ category.pk }}"
+                                {% if selected_category == category.pk|stringformat:"s" %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ category.name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Month -->
+                <div>
+
+                    <label
+                        for="month"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                    >
+                        Month
+                    </label>
+
+                    <select
+                        id="month"
+                        name="month"
+                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    >
+
+                        <option value="">
+                            All Months
+                        </option>
+
+                        {% for month_option in month_choices %}
+
+                            <option
+                                value="{{ month_option.value }}"
+                                {% if selected_month == month_option.value %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ month_option.label }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Filter Buttons -->
+            <div class="mt-4 flex flex-wrap gap-3">
+
+                <button
+                    type="submit"
+                    class="inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                    Apply Filters
+                </button>
+
+                <a
+                    href="{% url 'expenses:transaction_list' %}"
+                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                >
+                    Clear Filters
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =====================================================
+         FILTERED TOTALS
+    ====================================================== -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+        <!-- Income -->
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                        Income
+                    </p>
+
+                    <p class="mt-1 text-xl font-bold text-emerald-700">
+                        +${{ filtered_income|floatformat:2 }}
+                    </p>
+                </div>
+
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-lg font-semibold text-emerald-700">
+                    ↑
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Expenses -->
+        <div class="rounded-xl border border-red-200 bg-red-50 p-4">
+
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-red-700">
+                        Expenses
+                    </p>
+
+                    <p class="mt-1 text-xl font-bold text-red-700">
+                        -${{ filtered_expenses|floatformat:2 }}
+                    </p>
+                </div>
+
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 text-lg font-semibold text-red-700">
+                    ↓
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TRANSACTION TABLE
+    ====================================================== -->
+    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+
+        {% if transactions %}
+
+            <div class="overflow-x-auto">
+
+                <table class="min-w-full divide-y divide-slate-200">
+
+                    <thead class="bg-slate-50">
+
+                        <tr>
+
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                Transaction
+                            </th>
+
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                Category
+                            </th>
+
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                Date
+                            </th>
+
+                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                Amount
+                            </th>
+
+                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody class="divide-y divide-slate-100">
+
+                        {% for transaction in transactions %}
+
+                            <tr class="transition hover:bg-slate-50">
+
+                                <!-- Transaction -->
+                                <td class="px-6 py-4">
+
+                                    <div class="flex items-center gap-3">
+
+                                        {% if transaction.transaction_type == "income" %}
+
+                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 font-semibold text-emerald-600">
+                                                ↑
+                                            </div>
+
+                                        {% else %}
+
+                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-100 font-semibold text-red-600">
+                                                ↓
+                                            </div>
+
+                                        {% endif %}
+
+
+                                        <div class="min-w-0">
+
+                                            <p class="truncate font-medium text-slate-900">
+                                                {{ transaction.description }}
+                                            </p>
+
+                                            <p class="mt-0.5 text-xs capitalize text-slate-500">
+                                                {{ transaction.transaction_type }}
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Category -->
+                                <td class="whitespace-nowrap px-6 py-4">
+
+                                    {% if transaction.category %}
+
+                                        <span class="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+                                            {{ transaction.category.name }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="text-sm text-slate-400">
+                                            Uncategorized
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Date -->
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                                    {{ transaction.date|date:"M j, Y" }}
+                                </td>
+
+
+                                <!-- Amount -->
+                                <td class="whitespace-nowrap px-6 py-4 text-right">
+
+                                    {% if transaction.transaction_type == "income" %}
+
+                                        <span class="font-semibold text-emerald-600">
+                                            +${{ transaction.amount|floatformat:2 }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="font-semibold text-red-600">
+                                            -${{ transaction.amount|floatformat:2 }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Actions -->
+                                <td class="whitespace-nowrap px-6 py-4 text-right">
+
+                                    <a
+                                        href="{% url 'expenses:transaction_update' transaction.pk %}"
+                                        class="text-sm font-semibold text-indigo-600 transition hover:text-indigo-700"
+                                    >
+                                        Edit
+                                    </a>
+
+                                    <a
+                                        href="{% url 'expenses:transaction_delete' transaction.pk %}"
+                                        class="ml-4 text-sm font-semibold text-red-600 transition hover:text-red-700"
+                                    >
+                                        Delete
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        {% else %}
+
+            <!-- =====================================================
+                 EMPTY / NO RESULTS STATE
+            ====================================================== -->
+            <div class="px-6 py-16 text-center">
+
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-xl font-semibold text-slate-500">
+                    $
+                </div>
+
+                <h2 class="mt-4 text-base font-semibold text-slate-900">
+                    No transactions found
+                </h2>
+
+                <p class="mx-auto mt-2 max-w-sm text-sm text-slate-500">
+                    No transactions match your current filters. Try changing
+                    your filters or add a new transaction.
+                </p>
+
+
+                <div class="mt-5 flex flex-wrap justify-center gap-3">
+
+                    <a
+                        href="{% url 'expenses:transaction_list' %}"
+                        class="inline-flex rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                    >
+                        Clear Filters
+                    </a>
+
+                    <a
+                        href="{% url 'expenses:transaction_create' %}"
+                        class="inline-flex rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                    >
+                        Add Transaction
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

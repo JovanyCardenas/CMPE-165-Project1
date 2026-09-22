@@ -1,10 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}{{ page_title }} | Expense Tracker{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto max-w-2xl">
+
+    <div class="mb-8">
+
+        <a
+            href="{% url 'expenses:budget_list' %}"
+            class="text-sm font-medium text-indigo-600 hover:text-indigo-700"
+        >
+            ← Back to Budgets
+        </a>
+
+        <h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-900">
+            {{ page_title }}
+        </h1>
+
+        <p class="mt-2 text-sm text-slate-600">
+            Set a monthly spending limit for one of your categories.
+        </p>
+
+    </div>
+
+
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+
+        <form method="post" class="space-y-6">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+                <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+
+            <div>
+
+                <label
+                    for="{{ form.category.id_for_label }}"
+                    class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                    Category
+                </label>
+
+                {{ form.category }}
+
+                {% for error in form.category.errors %}
+                    <p class="mt-1 text-sm text-red-600">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+
+            <div>
+
+                <label
+                    for="{{ form.amount.id_for_label }}"
+                    class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                    Monthly Budget
+                </label>
+
+                <div class="relative">
+                    {{ form.amount }}
+                </div>
+
+                <p class="mt-2 text-xs text-slate-500">
+                    Enter the maximum amount you want to spend in this category.
+                </p>
+
+                {% for error in form.amount.errors %}
+                    <p class="mt-1 text-sm text-red-600">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+
+            <div>
+
+                <label
+                    for="{{ form.month.id_for_label }}"
+                    class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                    Month
+                </label>
+
+                {{ form.month }}
+
+                {% for error in form.month.errors %}
+                    <p class="mt-1 text-sm text-red-600">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+
+            <div class="flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end">
+
+                <a
+                    href="{% url 'expenses:budget_list' %}"
+                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                >
+                    {{ button_text }}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -2,10 +2,16 @@ from django.urls import path
 
 from .views import *
 
+
 app_name = "expenses"
 
+
 urlpatterns = [
-    path("", dashboard, name="dashboard"),
+    path(
+        "",
+        dashboard,
+        name="dashboard",
+    ),
 
     path(
         "transactions/",
@@ -20,8 +26,45 @@ urlpatterns = [
     ),
 
     path(
+        "transactions/<int:pk>/edit/",
+        transaction_update,
+        name="transaction_update",
+    ),
+
+    path(
+        "transactions/<int:pk>/delete/",
+        transaction_delete,
+        name="transaction_delete",
+    ),
+
+    path(
         "budgets/add/",
         budget_create,
         name="budget_create",
     ),
+
+    path(
+        "budgets/",
+        budget_list,
+        name="budget_list",
+    ),
+
+    path(
+        "budgets/add/",
+        budget_create,
+        name="budget_create",
+    ),
+
+    path(
+        "budgets/<int:pk>/edit/",
+        budget_update,
+        name="budget_update",
+    ),
+
+    path(
+        "budgets/<int:pk>/delete/",
+        budget_delete,
+        name="budget_delete",
+    ),
+
 ]
