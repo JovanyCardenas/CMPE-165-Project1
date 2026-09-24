@@ -86,6 +86,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "core.context_processors.feature_flags",
                 "core.context_processors.admin_globals",
+                "core.context_processors.user_settings",
             ],
         },
     },

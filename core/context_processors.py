@@ -11,3 +11,17 @@ def admin_globals(request):
         "is_impersonating": getattr(request, "is_impersonating", False),
         "original_user": getattr(request, "original_user", None),
     }
+
+def user_settings(request):
+    if request.user.is_authenticated:
+        settings, _ = UserSettings.objects.get_or_create(
+            user=request.user
+        )
+
+        return {
+            "user_settings": settings
+        }
+
+    return {
+        "user_settings": None
+    }

@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
 
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -19,11 +19,11 @@
                     </div>
 
                     <div>
-                        <span class="block text-lg font-bold leading-none text-slate-900">
+                        <span class="block text-lg font-bold leading-none text-slate-900 dark:text-slate-100">
                             Expense Tracker
                         </span>
 
-                        <span class="hidden text-xs text-slate-500 sm:block">
+                        <span class="hidden text-xs text-slate-500 dark:text-slate-400 sm:block">
                             Personal Finance
                         </span>
                     </div>
@@ -40,8 +40,10 @@
                             rounded-lg px-3 py-2 text-sm font-medium transition
                             {% if request.resolver_match.url_name == 'home' %}
                                 bg-indigo-50 text-indigo-700
+                                dark:bg-indigo-500/10 dark:text-indigo-300
                             {% else %}
                                 text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white
                             {% endif %}
                         "
                     >
@@ -58,8 +60,10 @@
                                 rounded-lg px-3 py-2 text-sm font-medium transition
                                 {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'dashboard' %}
                                     bg-indigo-50 text-indigo-700
+                                    dark:bg-indigo-500/10 dark:text-indigo-300
                                 {% else %}
                                     text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                    dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white
                                 {% endif %}
                             "
                         >
@@ -74,8 +78,10 @@
                                 rounded-lg px-3 py-2 text-sm font-medium transition
                                 {% if request.resolver_match.namespace == 'expenses' and 'transaction' in request.resolver_match.url_name %}
                                     bg-indigo-50 text-indigo-700
+                                    dark:bg-indigo-500/10 dark:text-indigo-300
                                 {% else %}
                                     text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                    dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white
                                 {% endif %}
                             "
                         >
@@ -90,8 +96,10 @@
                                 rounded-lg px-3 py-2 text-sm font-medium transition
                                 {% if request.resolver_match.namespace == 'expenses' and 'budget' in request.resolver_match.url_name %}
                                     bg-indigo-50 text-indigo-700
+                                    dark:bg-indigo-500/10 dark:text-indigo-300
                                 {% else %}
                                     text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                    dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white
                                 {% endif %}
                             "
                         >
@@ -106,8 +114,10 @@
                                 rounded-lg px-3 py-2 text-sm font-medium transition
                                 {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'reports' %}
                                     bg-indigo-50 text-indigo-700
+                                    dark:bg-indigo-500/10 dark:text-indigo-300
                                 {% else %}
                                     text-slate-600 hover:bg-slate-100 hover:text-slate-900
+                                    dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white
                                 {% endif %}
                             "
                         >
@@ -140,7 +150,10 @@
                                 data-dropdown-button
                                 aria-haspopup="true"
                                 aria-expanded="false"
-                                class="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                                class="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium
+                                       text-slate-600 transition
+                                       hover:bg-slate-100 hover:text-slate-900
+                                       dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                             >
                                 Staff
 
@@ -162,26 +175,34 @@
 
                             <div
                                 data-dropdown-menu
-                                class="absolute right-0 mt-2 hidden w-52 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg"
+                                class="absolute right-0 mt-2 hidden w-52 overflow-hidden rounded-xl
+                                       border border-slate-200 bg-white py-1 shadow-lg
+                                       dark:border-slate-800 dark:bg-slate-900"
                             >
 
                                 <a
                                     href="{% url 'admin:index' %}"
-                                    class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                    class="block px-4 py-2.5 text-sm text-slate-700 transition
+                                           hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
                                 >
                                     Django Admin
                                 </a>
 
                                 <a
                                     href="{% url 'feature_toggle' %}"
-                                    class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                    class="block px-4 py-2.5 text-sm text-slate-700 transition
+                                           hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
                                 >
                                     Feature Toggles
                                 </a>
 
                                 <a
                                     href="{% url 'admin_tools' %}"
-                                    class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                    class="block px-4 py-2.5 text-sm text-slate-700 transition
+                                           hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
                                 >
                                     Admin Tools
                                 </a>
@@ -203,11 +224,14 @@
                             data-dropdown-button
                             aria-haspopup="true"
                             aria-expanded="false"
-                            class="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-slate-100"
+                            class="flex items-center gap-2 rounded-xl px-2 py-1.5 transition
+                                   hover:bg-slate-100 dark:hover:bg-slate-800"
                         >
 
                             <!-- Avatar -->
-                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold uppercase text-indigo-700">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-full
+                                        bg-indigo-100 text-sm font-semibold uppercase text-indigo-700
+                                        dark:bg-indigo-500/20 dark:text-indigo-300">
 
                                 {% if user.first_name %}
                                     {{ user.first_name|first|upper }}
@@ -219,7 +243,8 @@
 
 
                             <!-- Username -->
-                            <span class="max-w-32 truncate text-sm font-medium text-slate-700">
+                            <span class="max-w-32 truncate text-sm font-medium
+                                         text-slate-700 dark:text-slate-200">
 
                                 {% if user.first_name %}
                                     {{ user.first_name }}
@@ -231,7 +256,7 @@
 
 
                             <svg
-                                class="h-4 w-4 text-slate-400"
+                                class="h-4 w-4 text-slate-400 dark:text-slate-500"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -250,13 +275,15 @@
                         <!-- User Dropdown -->
                         <div
                             data-dropdown-menu
-                            class="absolute right-0 mt-2 hidden w-60 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg"
+                            class="absolute right-0 mt-2 hidden w-60 overflow-hidden rounded-xl
+                                   border border-slate-200 bg-white shadow-lg
+                                   dark:border-slate-800 dark:bg-slate-900"
                         >
 
                             <!-- User Information -->
-                            <div class="border-b border-slate-100 px-4 py-3">
+                            <div class="border-b border-slate-100 px-4 py-3 dark:border-slate-800">
 
-                                <p class="truncate text-sm font-semibold text-slate-900">
+                                <p class="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
                                     {% if user.first_name or user.last_name %}
                                         {{ user.first_name }} {{ user.last_name }}
                                     {% else %}
@@ -265,11 +292,11 @@
                                 </p>
 
                                 {% if user.email %}
-                                    <p class="mt-0.5 truncate text-xs text-slate-500">
+                                    <p class="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">
                                         {{ user.email }}
                                     </p>
                                 {% else %}
-                                    <p class="mt-0.5 truncate text-xs text-slate-500">
+                                    <p class="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">
                                         @{{ user.username }}
                                     </p>
                                 {% endif %}
@@ -282,7 +309,9 @@
                                 <!-- Profile -->
                                 <a
                                     href="{% url 'profile' %}"
-                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm
+                                           text-slate-700 transition hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
                                 >
                                     <svg
                                         class="h-4 w-4 text-slate-400"
@@ -305,7 +334,9 @@
                                 <!-- Edit Profile -->
                                 <a
                                     href="{% url 'edit_profile' %}"
-                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm
+                                           text-slate-700 transition hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
                                 >
                                     <svg
                                         class="h-4 w-4 text-slate-400"
@@ -328,7 +359,9 @@
                                 <!-- Change Password -->
                                 <a
                                     href="{% url 'password_change' %}"
-                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm
+                                           text-slate-700 transition hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
                                 >
                                     <svg
                                         class="h-4 w-4 text-slate-400"
@@ -351,7 +384,9 @@
                                 <!-- Settings -->
                                 <a
                                     href="{% url 'settings' %}"
-                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm
+                                           text-slate-700 transition hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
                                 >
                                     <svg
                                         class="h-4 w-4 text-slate-400"
@@ -376,10 +411,55 @@
                                     Settings
                                 </a>
 
+                                <!-- Quick Theme Toggle -->
+                                <button
+                                    type="button"
+                                    id="theme-toggle"
+                                    class="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm
+                                           text-slate-700 transition hover:bg-slate-50
+                                           dark:text-slate-200 dark:hover:bg-slate-800"
+                                >
+                                    <!-- Sun icon: shown when currently dark -->
+                                    <svg
+                                        id="theme-toggle-sun"
+                                        class="hidden h-4 w-4 text-amber-500 dark:block"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364-.707.707M6.343 17.657l-.707.707m12.728 0-.707-.707M6.343 6.343l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                        />
+                                    </svg>
+
+                                    <!-- Moon icon: shown when currently light -->
+                                    <svg
+                                        id="theme-toggle-moon"
+                                        class="h-4 w-4 text-slate-400 dark:hidden"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                                        />
+                                    </svg>
+
+                                    <span id="theme-toggle-text">
+                                        Dark Mode
+                                    </span>
+                                </button>
+
                             </div>
 
 
-                            <div class="border-t border-slate-100 py-1">
+                            <div class="border-t border-slate-100 py-1 dark:border-slate-800">
 
                                 <!-- Logout -->
                                 <form
@@ -390,7 +470,10 @@
 
                                     <button
                                         type="submit"
-                                        class="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
+                                        class="flex w-full items-center gap-3 px-4 py-2.5 text-left
+                                               text-sm font-medium text-red-600 transition
+                                               hover:bg-red-50
+                                               dark:text-red-400 dark:hover:bg-red-950/40"
                                     >
                                         <svg
                                             class="h-4 w-4"
@@ -422,21 +505,27 @@
                     <!-- Guest Navigation -->
                     <a
                         href="{% url 'about' %}"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                        class="rounded-lg px-3 py-2 text-sm font-medium
+                               text-slate-600 transition
+                               hover:bg-slate-100 hover:text-slate-900
+                               dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                     >
                         About
                     </a>
 
                     <a
                         href="{% url 'login' %}"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        class="rounded-lg px-3 py-2 text-sm font-medium
+                               text-slate-700 transition hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Log In
                     </a>
 
                     <a
                         href="{% url 'register' %}"
-                        class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                        class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold
+                               text-white shadow-sm transition hover:bg-indigo-700"
                     >
                         Get Started
                     </a>
@@ -455,7 +544,10 @@
                 aria-label="Toggle navigation"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
-                class="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 md:hidden"
+                class="rounded-lg p-2 text-slate-600 transition
+                       hover:bg-slate-100
+                       dark:text-slate-300 dark:hover:bg-slate-800
+                       md:hidden"
             >
                 <svg
                     class="h-6 w-6"
@@ -480,7 +572,7 @@
         ====================================================== -->
         <div
             id="mobile-menu"
-            class="hidden border-t border-slate-100 py-3 md:hidden"
+            class="hidden border-t border-slate-100 py-3 dark:border-slate-800 md:hidden"
         >
 
             <div class="space-y-1">
@@ -492,8 +584,10 @@
                         block rounded-lg px-3 py-2.5 text-sm font-medium transition
                         {% if request.resolver_match.url_name == 'home' %}
                             bg-indigo-50 text-indigo-700
+                            dark:bg-indigo-500/10 dark:text-indigo-300
                         {% else %}
                             text-slate-700 hover:bg-slate-100
+                            dark:text-slate-200 dark:hover:bg-slate-800
                         {% endif %}
                     "
                 >
@@ -510,8 +604,10 @@
                             block rounded-lg px-3 py-2.5 text-sm font-medium transition
                             {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'dashboard' %}
                                 bg-indigo-50 text-indigo-700
+                                dark:bg-indigo-500/10 dark:text-indigo-300
                             {% else %}
                                 text-slate-700 hover:bg-slate-100
+                                dark:text-slate-200 dark:hover:bg-slate-800
                             {% endif %}
                         "
                     >
@@ -526,8 +622,10 @@
                             block rounded-lg px-3 py-2.5 text-sm font-medium transition
                             {% if request.resolver_match.namespace == 'expenses' and 'transaction' in request.resolver_match.url_name %}
                                 bg-indigo-50 text-indigo-700
+                                dark:bg-indigo-500/10 dark:text-indigo-300
                             {% else %}
                                 text-slate-700 hover:bg-slate-100
+                                dark:text-slate-200 dark:hover:bg-slate-800
                             {% endif %}
                         "
                     >
@@ -542,8 +640,10 @@
                             block rounded-lg px-3 py-2.5 text-sm font-medium transition
                             {% if request.resolver_match.namespace == 'expenses' and 'budget' in request.resolver_match.url_name %}
                                 bg-indigo-50 text-indigo-700
+                                dark:bg-indigo-500/10 dark:text-indigo-300
                             {% else %}
                                 text-slate-700 hover:bg-slate-100
+                                dark:text-slate-200 dark:hover:bg-slate-800
                             {% endif %}
                         "
                     >
@@ -558,8 +658,10 @@
                             block rounded-lg px-3 py-2.5 text-sm font-medium transition
                             {% if request.resolver_match.namespace == 'expenses' and request.resolver_match.url_name == 'reports' %}
                                 bg-indigo-50 text-indigo-700
+                                dark:bg-indigo-500/10 dark:text-indigo-300
                             {% else %}
                                 text-slate-700 hover:bg-slate-100
+                                dark:text-slate-200 dark:hover:bg-slate-800
                             {% endif %}
                         "
                     >
@@ -568,7 +670,7 @@
 
 
                     <!-- Account Divider -->
-                    <div class="my-3 border-t border-slate-100"></div>
+                    <div class="my-3 border-t border-slate-100 dark:border-slate-800"></div>
 
 
                     <!-- Mobile User Information -->
@@ -576,7 +678,9 @@
 
                         <div class="flex items-center gap-3">
 
-                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold uppercase text-indigo-700">
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full
+                                        bg-indigo-100 text-sm font-semibold uppercase text-indigo-700
+                                        dark:bg-indigo-500/20 dark:text-indigo-300">
 
                                 {% if user.first_name %}
                                     {{ user.first_name|first|upper }}
@@ -588,7 +692,7 @@
 
                             <div class="min-w-0">
 
-                                <p class="truncate text-sm font-semibold text-slate-900">
+                                <p class="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
                                     {% if user.first_name or user.last_name %}
                                         {{ user.first_name }} {{ user.last_name }}
                                     {% else %}
@@ -597,11 +701,11 @@
                                 </p>
 
                                 {% if user.email %}
-                                    <p class="truncate text-xs text-slate-500">
+                                    <p class="truncate text-xs text-slate-500 dark:text-slate-400">
                                         {{ user.email }}
                                     </p>
                                 {% else %}
-                                    <p class="truncate text-xs text-slate-500">
+                                    <p class="truncate text-xs text-slate-500 dark:text-slate-400">
                                         @{{ user.username }}
                                     </p>
                                 {% endif %}
@@ -616,7 +720,9 @@
                     <!-- Profile -->
                     <a
                         href="{% url 'profile' %}"
-                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                               text-slate-700 transition hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Profile
                     </a>
@@ -625,7 +731,9 @@
                     <!-- Edit Profile -->
                     <a
                         href="{% url 'edit_profile' %}"
-                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                               text-slate-700 transition hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Edit Profile
                     </a>
@@ -634,7 +742,9 @@
                     <!-- Change Password -->
                     <a
                         href="{% url 'password_change' %}"
-                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                               text-slate-700 transition hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Change Password
                     </a>
@@ -643,38 +753,92 @@
                     <!-- Settings -->
                     <a
                         href="{% url 'settings' %}"
-                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                               text-slate-700 transition hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Settings
                     </a>
 
 
+                    <!-- Mobile Theme Toggle -->
+                    <button
+                        type="button"
+                        id="mobile-theme-toggle"
+                        class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5
+                               text-left text-sm font-medium text-slate-700 transition
+                               hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
+                    >
+                        <!-- Sun icon: shown in dark mode -->
+                        <svg
+                            class="hidden h-4 w-4 text-amber-500 dark:block"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364-.707.707M6.343 17.657l-.707.707m12.728 0-.707-.707M6.343 6.343l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                            />
+                        </svg>
+
+                        <!-- Moon icon: shown in light mode -->
+                        <svg
+                            class="h-4 w-4 text-slate-400 dark:hidden"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                            />
+                        </svg>
+
+                        <span id="mobile-theme-toggle-text">
+                            Dark Mode
+                        </span>
+                    </button>
+
+
                     <!-- Mobile Staff Tools -->
                     {% if user.is_staff %}
 
-                        <div class="my-3 border-t border-slate-100"></div>
+                        <div class="my-3 border-t border-slate-100 dark:border-slate-800"></div>
 
-                        <p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                        <p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide
+                                  text-slate-400 dark:text-slate-500">
                             Staff
                         </p>
 
                         <a
                             href="{% url 'admin:index' %}"
-                            class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                            class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                                   text-slate-700 transition hover:bg-slate-100
+                                   dark:text-slate-200 dark:hover:bg-slate-800"
                         >
                             Django Admin
                         </a>
 
                         <a
                             href="{% url 'feature_toggle' %}"
-                            class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                            class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                                   text-slate-700 transition hover:bg-slate-100
+                                   dark:text-slate-200 dark:hover:bg-slate-800"
                         >
                             Feature Toggles
                         </a>
 
                         <a
                             href="{% url 'admin_tools' %}"
-                            class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                            class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                                   text-slate-700 transition hover:bg-slate-100
+                                   dark:text-slate-200 dark:hover:bg-slate-800"
                         >
                             Admin Tools
                         </a>
@@ -682,7 +846,7 @@
                     {% endif %}
 
 
-                    <div class="my-3 border-t border-slate-100"></div>
+                    <div class="my-3 border-t border-slate-100 dark:border-slate-800"></div>
 
 
                     <!-- Logout -->
@@ -694,7 +858,9 @@
 
                         <button
                             type="submit"
-                            class="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
+                            class="block w-full rounded-lg px-3 py-2.5 text-left text-sm
+                                   font-medium text-red-600 transition hover:bg-red-50
+                                   dark:text-red-400 dark:hover:bg-red-950/40"
                         >
                             Log Out
                         </button>
@@ -706,21 +872,27 @@
                     <!-- Guest Mobile Navigation -->
                     <a
                         href="{% url 'about' %}"
-                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                               text-slate-700 transition hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         About
                     </a>
 
                     <a
                         href="{% url 'login' %}"
-                        class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        class="block rounded-lg px-3 py-2.5 text-sm font-medium
+                               text-slate-700 transition hover:bg-slate-100
+                               dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Log In
                     </a>
 
                     <a
                         href="{% url 'register' %}"
-                        class="mt-2 block rounded-lg bg-indigo-600 px-3 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                        class="mt-2 block rounded-lg bg-indigo-600 px-3 py-2.5 text-center
+                               text-sm font-semibold text-white shadow-sm transition
+                               hover:bg-indigo-700"
                     >
                         Get Started
                     </a>

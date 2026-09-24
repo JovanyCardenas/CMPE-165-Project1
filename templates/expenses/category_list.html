@@ -10,15 +10,15 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 
         <div>
-            <p class="text-sm font-semibold text-indigo-600">
+            <p class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
                 Organization
             </p>
 
-            <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+            <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                 Categories
             </h1>
 
-            <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
                 Organize your income and expenses with categories that match
                 how you manage your finances.
             </p>
@@ -50,22 +50,22 @@
 
 
     <!-- Summary -->
-    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
 
         <div class="flex items-center justify-between">
 
             <div>
-                <p class="text-sm font-medium text-slate-500">
+                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                     Your Categories
                 </p>
 
-                <p class="mt-1 text-2xl font-bold text-slate-900">
+                <p class="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {{ categories|length }}
                 </p>
             </div>
 
 
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
 
                 <svg
                     class="h-5 w-5"
@@ -89,15 +89,15 @@
 
 
     <!-- Category Table -->
-    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
 
-        <div class="border-b border-slate-200 px-6 py-4">
+        <div class="border-b border-slate-200 dark:border-slate-800 px-6 py-4">
 
-            <h2 class="font-semibold text-slate-900">
+            <h2 class="font-semibold text-slate-900 dark:text-slate-100">
                 All Categories
             </h2>
 
-            <p class="mt-1 text-xs text-slate-500">
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 Categories are available when creating or editing transactions and budgets.
             </p>
 
@@ -110,9 +110,9 @@
 
                 <table class="w-full text-left">
 
-                    <thead class="border-b border-slate-200 bg-slate-50">
+                    <thead class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60">
 
-                        <tr class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        <tr class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
 
                             <th class="px-6 py-3">
                                 Category
@@ -131,27 +131,27 @@
                     </thead>
 
 
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
 
                         {% for category in categories %}
 
-                            <tr class="transition hover:bg-slate-50">
+                            <tr class="transition hover:bg-slate-50 dark:hover:bg-slate-800">
 
                                 <td class="px-6 py-4">
 
                                     <div class="flex items-center gap-3">
 
-                                        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-sm font-bold text-indigo-600">
+                                        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-sm font-bold text-indigo-600 dark:text-indigo-400">
                                             {{ category.name|first|upper }}
                                         </div>
 
                                         <div>
 
-                                            <p class="font-semibold text-slate-900">
+                                            <p class="font-semibold text-slate-900 dark:text-slate-100">
                                                 {{ category.name }}
                                             </p>
 
-                                            <p class="text-xs text-slate-400">
+                                            <p class="text-xs text-slate-400 dark:text-slate-500">
                                                 Category #{{ category.id }}
                                             </p>
 
@@ -164,7 +164,7 @@
 
                                 <td class="px-6 py-4">
 
-                                    <span class="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
+                                    <span class="inline-flex rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-400">
                                         {{ category.transaction_count }}
                                         transaction{{ category.transaction_count|pluralize }}
                                     </span>
@@ -178,14 +178,14 @@
 
                                         <a
                                             href="{% url 'expenses:category_update' category.pk %}"
-                                            class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+                                            class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800"
                                         >
                                             Edit
                                         </a>
 
                                         <a
                                             href="{% url 'expenses:category_delete' category.pk %}"
-                                            class="rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-semibold text-red-600 transition hover:bg-red-50"
+                                            class="rounded-lg border border-red-200 dark:border-red-800 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs font-semibold text-red-600 dark:text-red-400 transition hover:bg-red-50"
                                         >
                                             Delete
                                         </a>
@@ -209,15 +209,15 @@
 
             <div class="px-6 py-16 text-center">
 
-                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500">
                     <span class="text-lg font-bold">+</span>
                 </div>
 
-                <h3 class="mt-4 text-sm font-semibold text-slate-900">
+                <h3 class="mt-4 text-sm font-semibold text-slate-900 dark:text-slate-100">
                     No categories yet
                 </h3>
 
-                <p class="mt-1 text-sm text-slate-500">
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     Create your first category to start organizing transactions.
                 </p>
 
@@ -236,13 +236,13 @@
 
 
     <!-- Information -->
-    <div class="rounded-xl border border-indigo-100 bg-indigo-50/60 p-4">
+    <div class="rounded-xl border border-indigo-100 dark:border-indigo-500/20 bg-indigo-50/60 p-4">
 
-        <p class="text-sm font-semibold text-indigo-900">
+        <p class="text-sm font-semibold text-indigo-900 dark:text-indigo-200">
             How categories work
         </p>
 
-        <p class="mt-1 text-xs leading-5 text-indigo-700">
+        <p class="mt-1 text-xs leading-5 text-indigo-700 dark:text-indigo-300">
             Categories help organize transactions and monthly budgets.
             Deleting a category will not delete its transactions, but those
             transactions will become uncategorized. Categories with associated

@@ -10,31 +10,31 @@
 
         <a
             href="{% url 'expenses:budget_list' %}"
-            class="text-sm font-medium text-indigo-600 hover:text-indigo-700"
+            class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700"
         >
             ← Back to Budgets
         </a>
 
-        <h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-900">
+        <h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
             {{ page_title }}
         </h1>
 
-        <p class="mt-2 text-sm text-slate-600">
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
             Set a monthly spending limit for one of your categories.
         </p>
 
     </div>
 
 
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm sm:p-8">
 
-        <form method="post" class="space-y-6">
+        <form method="post" class="space-y-6 dark:[&_input]:border-slate-700 dark:[&_input]:bg-slate-800 dark:[&_input]:text-slate-100 dark:[&_input]:placeholder:text-slate-500 dark:[&_select]:border-slate-700 dark:[&_select]:bg-slate-800 dark:[&_select]:text-slate-100 dark:[&_textarea]:border-slate-700 dark:[&_textarea]:bg-slate-800 dark:[&_textarea]:text-slate-100 dark:[&_textarea]:placeholder:text-slate-500">
 
             {% csrf_token %}
 
 
             {% if form.non_field_errors %}
-                <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                <div class="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/40 p-4 text-sm text-red-700 dark:text-red-300">
                     {{ form.non_field_errors }}
                 </div>
             {% endif %}
@@ -44,7 +44,7 @@
 
                 <label
                     for="{{ form.category.id_for_label }}"
-                    class="mb-2 block text-sm font-medium text-slate-700"
+                    class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"
                 >
                     Category
                 </label>
@@ -52,7 +52,7 @@
                 {{ form.category }}
 
                 {% for error in form.category.errors %}
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">
                         {{ error }}
                     </p>
                 {% endfor %}
@@ -64,7 +64,7 @@
 
                 <label
                     for="{{ form.amount.id_for_label }}"
-                    class="mb-2 block text-sm font-medium text-slate-700"
+                    class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"
                 >
                     Monthly Budget
                 </label>
@@ -73,12 +73,12 @@
                     {{ form.amount }}
                 </div>
 
-                <p class="mt-2 text-xs text-slate-500">
+                <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                     Enter the maximum amount you want to spend in this category.
                 </p>
 
                 {% for error in form.amount.errors %}
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">
                         {{ error }}
                     </p>
                 {% endfor %}
@@ -90,7 +90,7 @@
 
                 <label
                     for="{{ form.month.id_for_label }}"
-                    class="mb-2 block text-sm font-medium text-slate-700"
+                    class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"
                 >
                     Month
                 </label>
@@ -98,7 +98,7 @@
                 {{ form.month }}
 
                 {% for error in form.month.errors %}
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">
                         {{ error }}
                     </p>
                 {% endfor %}
@@ -106,11 +106,11 @@
             </div>
 
 
-            <div class="flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end">
+            <div class="flex flex-col-reverse gap-3 border-t border-slate-100 dark:border-slate-800 pt-6 sm:flex-row sm:justify-end">
 
                 <a
                     href="{% url 'expenses:budget_list' %}"
-                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800"
                 >
                     Cancel
                 </a>

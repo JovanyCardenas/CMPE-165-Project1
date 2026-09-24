@@ -4,24 +4,24 @@
 
 {% block content %}
 
-<div class="mx-auto max-w-6xl space-y-8 px-4 py-8 text-slate-800">
+<div class="mx-auto max-w-6xl space-y-8 px-4 py-8 text-slate-800 dark:text-slate-200">
 
     <!-- =========================================================
          HEADER
     ========================================================== -->
-    <div class="flex flex-col gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-4 border-b border-slate-200 dark:border-slate-800 pb-5 sm:flex-row sm:items-center sm:justify-between">
 
         <div>
-            <div class="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+            <div class="inline-flex items-center gap-2 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-600 dark:text-slate-400">
                 <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
                 Staff Controls
             </div>
 
-            <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900">
+            <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
                 Admin Control Center
             </h1>
 
-            <p class="mt-1 text-sm text-slate-500">
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Manage application availability, announcements, feature configuration, and user sessions.
             </p>
         </div>
@@ -29,7 +29,7 @@
 
         <a
             href="{% url 'feature_toggle' %}"
-            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm transition hover:bg-slate-50 dark:hover:bg-slate-800"
         >
             Manage Feature Flags
         </a>
@@ -43,16 +43,16 @@
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
         <!-- Maintenance Mode -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
             <div class="mb-5 flex items-start justify-between gap-4">
 
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
                         Maintenance Mode
                     </h2>
 
-                    <p class="mt-1 text-xs leading-5 text-slate-500">
+                    <p class="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                         Temporarily prevent non-staff users from accessing the Expense Tracker.
                     </p>
                 </div>
@@ -60,14 +60,14 @@
 
                 {% if system_setting.maintenance_mode %}
 
-                    <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
+                    <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">
                         <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
                         Active
                     </span>
 
                 {% else %}
 
-                    <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                    <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
                         <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                         Online
                     </span>
@@ -95,10 +95,10 @@
                         name="maintenance_mode"
                         value="1"
                         {% if system_setting.maintenance_mode %}checked{% endif %}
-                        class="h-5 w-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                        class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 focus:ring-indigo-500"
                     >
 
-                    <span class="text-sm font-semibold text-slate-900">
+                    <span class="text-sm font-semibold text-slate-900 dark:text-slate-100">
                         Enable Maintenance Mode
                     </span>
 
@@ -109,7 +109,7 @@
 
                     <label
                         for="maintenance_message"
-                        class="mb-1.5 block text-xs font-semibold text-slate-600"
+                        class="mb-1.5 block text-xs font-semibold text-slate-600 dark:text-slate-400"
                     >
                         Maintenance Message
                     </label>
@@ -118,7 +118,7 @@
                         id="maintenance_message"
                         name="maintenance_message"
                         rows="3"
-                        class="w-full rounded-xl border border-slate-300 p-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 text-sm text-slate-900 dark:text-slate-100 outline-none transition placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                         placeholder="Expense Tracker is temporarily unavailable while maintenance is being performed."
                     >{{ system_setting.maintenance_message }}</textarea>
 
@@ -140,15 +140,15 @@
         <!-- =====================================================
              GLOBAL BANNERS
         ====================================================== -->
-        <div class="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
             <div>
 
-                <h2 class="text-lg font-bold text-slate-900">
+                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
                     Global Announcements
                 </h2>
 
-                <p class="mb-4 mt-1 text-xs leading-5 text-slate-500">
+                <p class="mb-4 mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                     Publish notices that appear throughout the Expense Tracker.
                 </p>
 
@@ -169,7 +169,7 @@
                         name="message"
                         placeholder="Enter announcement..."
                         required
-                        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 outline-none transition placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                     >
 
 
@@ -177,7 +177,7 @@
 
                         <select
                             name="banner_type"
-                            class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                            class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-xs text-slate-700 dark:text-slate-300 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                         >
                             <option value="info">
                                 Information
@@ -212,9 +212,9 @@
 
 
             <!-- Existing Banners -->
-            <div class="mt-6 space-y-2 border-t border-slate-100 pt-4">
+            <div class="mt-6 space-y-2 border-t border-slate-100 dark:border-slate-800 pt-4">
 
-                <span class="text-xs font-bold uppercase tracking-wide text-slate-400">
+                <span class="text-xs font-bold uppercase tracking-wide text-slate-400 dark:text-slate-500">
                     Recent Announcements
                 </span>
 
@@ -225,11 +225,11 @@
 
                         <div class="min-w-0">
 
-                            <span class="block truncate text-slate-700">
+                            <span class="block truncate text-slate-700 dark:text-slate-300">
                                 {{ banner.message }}
                             </span>
 
-                            <span class="text-[11px] uppercase tracking-wide text-slate-400">
+                            <span class="text-[11px] uppercase tracking-wide text-slate-400 dark:text-slate-500">
                                 {{ banner.banner_type }}
                             </span>
 
@@ -257,9 +257,9 @@
                                 type="submit"
                                 class="font-semibold transition
                                 {% if banner.is_active %}
-                                    text-rose-600 hover:text-rose-700
+                                    text-rose-600 dark:text-rose-400 hover:text-rose-700
                                 {% else %}
-                                    text-emerald-600 hover:text-emerald-700
+                                    text-emerald-600 dark:text-emerald-400 hover:text-emerald-700
                                 {% endif %}"
                             >
                                 {% if banner.is_active %}
@@ -276,7 +276,7 @@
 
                 {% empty %}
 
-                    <p class="text-xs text-slate-400">
+                    <p class="text-xs text-slate-400 dark:text-slate-500">
                         No announcements have been created.
                     </p>
 
@@ -292,24 +292,24 @@
     <!-- =========================================================
          SYSTEM UTILITIES
     ========================================================== -->
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
         <div class="flex items-center justify-between gap-4">
 
             <div>
 
-                <h2 class="text-lg font-bold text-slate-900">
+                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
                     System Utilities
                 </h2>
 
-                <p class="mt-1 text-xs text-slate-500">
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
                     Maintain default application configuration and system data.
                 </p>
 
             </div>
 
 
-            <span class="rounded-xl bg-indigo-50 p-2 text-indigo-600">
+            <span class="rounded-xl bg-indigo-50 dark:bg-indigo-500/10 p-2 text-indigo-600 dark:text-indigo-400">
 
                 <svg
                     class="h-5 w-5"
@@ -332,15 +332,15 @@
 
         <div class="mt-5">
 
-            <div class="flex flex-col gap-4 rounded-xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex flex-col gap-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4 sm:flex-row sm:items-center sm:justify-between">
 
                 <div>
 
-                    <p class="text-sm font-semibold text-slate-900">
+                    <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">
                         Restore Default Feature Flags
                     </p>
 
-                    <p class="mt-1 max-w-2xl text-xs leading-5 text-slate-500">
+                    <p class="mt-1 max-w-2xl text-xs leading-5 text-slate-500 dark:text-slate-400">
                         Restores any missing default Expense Tracker feature flags,
                         including dashboard, budgets, transaction filtering, reports,
                         analytics, and planned future features.
@@ -378,28 +378,28 @@
 <!-- =========================================================
      DEMO & DEVELOPMENT TOOLS
 ========================================================== -->
-<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+<div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
     <!-- Header -->
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 
         <div>
             <div class="flex items-center gap-2">
-                <h2 class="text-lg font-bold text-slate-900">
+                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
                     Demo & Development Tools
                 </h2>
 
-                <span class="rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-700">
+                <span class="rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-2 py-0.5 text-[10px] font-semibold text-indigo-700 dark:text-indigo-300">
                     Superuser
                 </span>
             </div>
 
-            <p class="mt-1 text-xs text-slate-500">
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 Manage demo data and run development utilities.
             </p>
         </div>
 
-        <span class="rounded-xl bg-indigo-50 p-2 text-indigo-600">
+        <span class="rounded-xl bg-indigo-50 dark:bg-indigo-500/10 p-2 text-indigo-600 dark:text-indigo-400">
             <svg
                 class="h-5 w-5"
                 fill="none"
@@ -434,17 +434,17 @@
 
             <button
                 type="submit"
-                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-indigo-200 hover:bg-indigo-50"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-4 py-3 text-left transition hover:border-indigo-200 hover:bg-indigo-50"
             >
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-lg font-semibold text-indigo-700">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-500/20 text-lg font-semibold text-indigo-700 dark:text-indigo-300">
                     +
                 </span>
 
                 <span>
-                    <span class="block text-xs font-semibold text-slate-900">
+                    <span class="block text-xs font-semibold text-slate-900 dark:text-slate-100">
                         Seed Demo
                     </span>
-                    <span class="block text-[11px] text-slate-500">
+                    <span class="block text-[11px] text-slate-500 dark:text-slate-400">
                         Create default demo data
                     </span>
                 </span>
@@ -462,17 +462,17 @@
 
             <button
                 type="submit"
-                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-amber-200 hover:bg-amber-50"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-4 py-3 text-left transition hover:border-amber-200 hover:bg-amber-50"
             >
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-sm font-bold text-amber-700">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-500/20 text-sm font-bold text-amber-700 dark:text-amber-300">
                     ↻
                 </span>
 
                 <span>
-                    <span class="block text-xs font-semibold text-slate-900">
+                    <span class="block text-xs font-semibold text-slate-900 dark:text-slate-100">
                         Reset Demo
                     </span>
-                    <span class="block text-[11px] text-slate-500">
+                    <span class="block text-[11px] text-slate-500 dark:text-slate-400">
                         Restore default dataset
                     </span>
                 </span>
@@ -491,17 +491,17 @@
 
             <button
                 type="submit"
-                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-sky-200 hover:bg-sky-50"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-4 py-3 text-left transition hover:border-sky-200 hover:bg-sky-50"
             >
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-xs font-bold text-sky-700">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-500/20 text-xs font-bold text-sky-700 dark:text-sky-300">
                     +6
                 </span>
 
                 <span>
-                    <span class="block text-xs font-semibold text-slate-900">
+                    <span class="block text-xs font-semibold text-slate-900 dark:text-slate-100">
                         Add History
                     </span>
-                    <span class="block text-[11px] text-slate-500">
+                    <span class="block text-[11px] text-slate-500 dark:text-slate-400">
                         Generate 6 months
                     </span>
                 </span>
@@ -520,17 +520,17 @@
 
             <button
                 type="submit"
-                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-emerald-200 hover:bg-emerald-50"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-4 py-3 text-left transition hover:border-emerald-200 hover:bg-emerald-50"
             >
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-sm font-bold text-emerald-700">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-sm font-bold text-emerald-700 dark:text-emerald-300">
                     ✓
                 </span>
 
                 <span>
-                    <span class="block text-xs font-semibold text-slate-900">
+                    <span class="block text-xs font-semibold text-slate-900 dark:text-slate-100">
                         Integrity Check
                     </span>
-                    <span class="block text-[11px] text-slate-500">
+                    <span class="block text-[11px] text-slate-500 dark:text-slate-400">
                         Check application data
                     </span>
                 </span>
@@ -548,17 +548,17 @@
 
             <button
                 type="submit"
-                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-orange-200 hover:bg-orange-50"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 px-4 py-3 text-left transition hover:border-orange-200 hover:bg-orange-50"
             >
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-sm font-bold text-orange-700">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-500/20 text-sm font-bold text-orange-700 dark:text-orange-300">
                     ×
                 </span>
 
                 <span>
-                    <span class="block text-xs font-semibold text-slate-900">
+                    <span class="block text-xs font-semibold text-slate-900 dark:text-slate-100">
                         Clear Data
                     </span>
-                    <span class="block text-[11px] text-slate-500">
+                    <span class="block text-[11px] text-slate-500 dark:text-slate-400">
                         Keep demo account
                     </span>
                 </span>
@@ -580,17 +580,17 @@
 
             <button
                 type="submit"
-                class="flex w-full items-center gap-3 rounded-xl border border-rose-200 bg-rose-50/40 px-4 py-3 text-left transition hover:bg-rose-50"
+                class="flex w-full items-center gap-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50/40 px-4 py-3 text-left transition hover:bg-rose-50"
             >
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-sm font-bold text-rose-700">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-100 dark:bg-rose-500/20 text-sm font-bold text-rose-700 dark:text-rose-300">
                     ×
                 </span>
 
                 <span>
-                    <span class="block text-xs font-semibold text-rose-800">
+                    <span class="block text-xs font-semibold text-rose-800 dark:text-rose-200">
                         Delete Demo
                     </span>
-                    <span class="block text-[11px] text-rose-600">
+                    <span class="block text-[11px] text-rose-600 dark:text-rose-400">
                         Remove account & data
                     </span>
                 </span>
@@ -604,15 +604,15 @@
     <!-- =========================================================
          USER IMPERSONATION
     ========================================================== -->
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
         <div class="mb-5">
 
-            <h2 class="text-lg font-bold text-slate-900">
+            <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
                 User Impersonation
             </h2>
 
-            <p class="mt-1 text-xs leading-5 text-slate-500">
+            <p class="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                 Temporarily view the Expense Tracker as another user for testing and troubleshooting.
             </p>
 
@@ -624,7 +624,7 @@
             <table class="w-full text-left text-sm">
 
                 <thead>
-                    <tr class="border-b border-slate-100 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                    <tr class="border-b border-slate-100 dark:border-slate-800 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
                         <th class="py-2">
                             User
                         </th>
@@ -644,21 +644,21 @@
                 </thead>
 
 
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
 
                     {% for u in recent_users %}
 
                         <tr>
 
-                            <td class="py-3 font-semibold text-slate-900">
+                            <td class="py-3 font-semibold text-slate-900 dark:text-slate-100">
                                 {{ u.username }}
                             </td>
 
-                            <td class="py-3 text-xs text-slate-500">
+                            <td class="py-3 text-xs text-slate-500 dark:text-slate-400">
                                 {{ u.email|default:"No email" }}
                             </td>
 
-                            <td class="py-3 text-xs text-slate-400">
+                            <td class="py-3 text-xs text-slate-400 dark:text-slate-500">
                                 {{ u.date_joined|date:"M d, Y" }}
                             </td>
 
@@ -666,7 +666,7 @@
 
                                 <a
                                     href="{% url 'impersonate_user' u.id %}"
-                                    class="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-200"
+                                    class="rounded-lg bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-200 dark:hover:bg-slate-700"
                                 >
                                     Login As →
                                 </a>
@@ -681,7 +681,7 @@
                         <tr>
                             <td
                                 colspan="4"
-                                class="py-8 text-center text-xs text-slate-400"
+                                class="py-8 text-center text-xs text-slate-400 dark:text-slate-500"
                             >
                                 No other users are currently registered.
                             </td>

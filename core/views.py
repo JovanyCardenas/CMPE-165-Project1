@@ -207,10 +207,70 @@ def resources(request):
     return render(request, "coming_soon.html")
     # return render(request, "pages/resources.html")
 
+# @login_required
+# def settings(request):
+#     return render(request, "coming_soon.html")
+#     # return render(request, "pages/settings.html")
+
 @login_required
 def settings(request):
-    return render(request, "coming_soon.html")
-    # return render(request, "pages/settings.html")
+    user_settings, _ = UserSettings.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == "POST":
+        user_settings.theme = request.POST.get(
+            "theme", "system"
+        )
+
+        user_settings.currency = request.POST.get(
+            "currency", "USD"
+        )
+
+        user_settings.dashboard_period = request.POST.get(
+            "dashboard_period", "month"
+        )
+
+        user_settings.default_transaction_type = request.POST.get(
+            "default_transaction_type", "expense"
+        )
+
+        user_settings.items_per_page = int(
+            request.POST.get("items_per_page", 25)
+        )
+
+        user_settings.budget_warning_threshold = int(
+            request.POST.get("budget_warning_threshold", 80)
+        )
+
+        user_settings.week_start = request.POST.get(
+            "week_start", "sunday"
+        )
+
+        user_settings.hide_financial_amounts = (
+            "hide_financial_amounts" in request.POST
+        )
+
+        user_settings.student_mode = (
+            "student_mode" in request.POST
+        )
+
+        user_settings.save()
+
+        messages.success(
+            request,
+            "Your settings have been saved."
+        )
+
+        return redirect("settings")
+
+    return render(
+        request,
+        "pages/settings.html",
+        {
+            "settings": user_settings,
+        },
+    )
 
 @login_required
 def dashboard(request):

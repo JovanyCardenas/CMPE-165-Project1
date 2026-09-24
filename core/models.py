@@ -43,3 +43,90 @@ class SiteBanner(models.Model):
 
     def __str__(self):
         return f"[{self.get_banner_type_display()}] {self.message[:40]}"
+
+
+class UserSettings(models.Model):
+    THEME_CHOICES = [
+        ("system", "System Default"),
+        ("light", "Light"),
+        ("dark", "Dark"),
+    ]
+
+    CURRENCY_CHOICES = [
+        ("USD", "USD ($)"),
+        ("MXN", "MXN ($)"),
+        ("EUR", "EUR (€)"),
+        ("GBP", "GBP (£)"),
+        ("CAD", "CAD ($)"),
+    ]
+
+    PERIOD_CHOICES = [
+        ("month", "This Month"),
+        ("30days", "Last 30 Days"),
+        ("year", "This Year"),
+    ]
+
+    TRANSACTION_TYPE_CHOICES = [
+        ("expense", "Expense"),
+        ("income", "Income"),
+    ]
+
+    WEEK_START_CHOICES = [
+        ("sunday", "Sunday"),
+        ("monday", "Monday"),
+    ]
+
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="expense_settings",
+    )
+
+    theme = models.CharField(
+        max_length=10,
+        choices=THEME_CHOICES,
+        default="system",
+    )
+
+    currency = models.CharField(
+        max_length=3,
+        choices=CURRENCY_CHOICES,
+        default="USD",
+    )
+
+    dashboard_period = models.CharField(
+        max_length=10,
+        choices=PERIOD_CHOICES,
+        default="month",
+    )
+
+    default_transaction_type = models.CharField(
+        max_length=10,
+        choices=TRANSACTION_TYPE_CHOICES,
+        default="expense",
+    )
+
+    items_per_page = models.PositiveIntegerField(
+        default=25,
+    )
+
+    budget_warning_threshold = models.PositiveIntegerField(
+        default=80,
+    )
+
+    hide_financial_amounts = models.BooleanField(
+        default=False,
+    )
+
+    week_start = models.CharField(
+        max_length=10,
+        choices=WEEK_START_CHOICES,
+        default="sunday",
+    )
+
+    student_mode = models.BooleanField(
+        default=True,
+    )
+
+    def __str__(self):
+        return f"{self.user.username}'s settings"

@@ -10,15 +10,15 @@
          PAGE HEADER
     ====================================================== -->
     <div>
-        <p class="text-sm font-medium text-indigo-600">
+        <p class="text-sm font-medium text-indigo-600 dark:text-indigo-400">
             Account
         </p>
 
-        <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+        <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
             Profile
         </h1>
 
-        <p class="mt-2 text-sm text-slate-600">
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
             View your account information and manage your profile.
         </p>
     </div>
@@ -27,17 +27,17 @@
     <!-- =====================================================
          PROFILE OVERVIEW
     ====================================================== -->
-    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
 
         <!-- Profile Header -->
-<div class="border-b border-slate-200 p-6 sm:p-8">
+<div class="border-b border-slate-200 dark:border-slate-800 p-6 sm:p-8">
 
     <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
 
         <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
 
             <!-- Avatar -->
-            <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-indigo-100 text-3xl font-bold uppercase text-indigo-700">
+            <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-indigo-100 dark:bg-indigo-500/20 text-3xl font-bold uppercase text-indigo-700 dark:text-indigo-300">
 
                 {% if user.first_name %}
                     {{ user.first_name|slice:":1" }}
@@ -51,7 +51,7 @@
             <!-- Name / Username -->
             <div class="min-w-0">
 
-                <h2 class="text-2xl font-bold text-slate-900">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100">
 
                     {% if user.first_name or user.last_name %}
                         {{ user.first_name }} {{ user.last_name }}
@@ -61,19 +61,19 @@
 
                 </h2>
 
-                <p class="mt-1 text-sm text-slate-500">
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     @{{ user.username }}
                 </p>
 
                 {% if user.is_staff %}
 
-                    <span class="mt-3 inline-flex rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+                    <span class="mt-3 inline-flex rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
                         Staff Account
                     </span>
 
                 {% else %}
 
-                    <span class="mt-3 inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                    <span class="mt-3 inline-flex rounded-full bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
                         Active Account
                     </span>
 
@@ -87,7 +87,7 @@
         <!-- Edit Profile -->
         <a
             href="{% url 'edit_profile' %}"
-            class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+            class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 shadow-sm transition hover:bg-slate-50 dark:hover:bg-slate-800"
         >
             <svg
                 class="h-4 w-4"
@@ -117,11 +117,11 @@
             <div class="flex items-center justify-between gap-4">
 
                 <div>
-                    <h3 class="text-base font-semibold text-slate-900">
+                    <h3 class="text-base font-semibold text-slate-900 dark:text-slate-100">
                         Account Information
                     </h3>
 
-                    <p class="mt-1 text-sm text-slate-500">
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         Basic information associated with your account.
                     </p>
                 </div>
@@ -132,13 +132,13 @@
             <dl class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
 
                 <!-- First Name -->
-                <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         First Name
                     </dt>
 
-                    <dd class="mt-2 text-sm font-medium text-slate-900">
+                    <dd class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
 
                         {% if user.first_name %}
                             {{ user.first_name }}
@@ -152,13 +152,13 @@
 
 
                 <!-- Last Name -->
-                <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         Last Name
                     </dt>
 
-                    <dd class="mt-2 text-sm font-medium text-slate-900">
+                    <dd class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
 
                         {% if user.last_name %}
                             {{ user.last_name }}
@@ -172,13 +172,13 @@
 
 
                 <!-- Username -->
-                <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         Username
                     </dt>
 
-                    <dd class="mt-2 text-sm font-medium text-slate-900">
+                    <dd class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
                         {{ user.username }}
                     </dd>
 
@@ -186,13 +186,13 @@
 
 
                 <!-- Email -->
-                <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         Email Address
                     </dt>
 
-                    <dd class="mt-2 break-all text-sm font-medium text-slate-900">
+                    <dd class="mt-2 break-all text-sm font-medium text-slate-900 dark:text-slate-100">
 
                         {% if user.email %}
                             {{ user.email }}
@@ -206,13 +206,13 @@
 
 
                 <!-- Date Joined -->
-                <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         Member Since
                     </dt>
 
-                    <dd class="mt-2 text-sm font-medium text-slate-900">
+                    <dd class="mt-2 text-sm font-medium text-slate-900 dark:text-slate-100">
                         {{ user.date_joined|date:"F j, Y" }}
                     </dd>
 
@@ -220,9 +220,9 @@
 
 
                 <!-- Account Status -->
-                <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         Account Status
                     </dt>
 
@@ -230,7 +230,7 @@
 
                         {% if user.is_active %}
 
-                            <span class="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600">
+                            <span class="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400">
 
                                 <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
 
@@ -240,7 +240,7 @@
 
                         {% else %}
 
-                            <span class="inline-flex items-center gap-1.5 text-sm font-medium text-red-600">
+                            <span class="inline-flex items-center gap-1.5 text-sm font-medium text-red-600 dark:text-red-400">
 
                                 <span class="h-2 w-2 rounded-full bg-red-500"></span>
 
@@ -264,14 +264,14 @@
     <!-- =====================================================
          EXPENSE TRACKER SECTION
     ====================================================== -->
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm sm:p-8">
 
         <div>
-            <h2 class="text-base font-semibold text-slate-900">
+            <h2 class="text-base font-semibold text-slate-900 dark:text-slate-100">
                 Expense Tracker
             </h2>
 
-            <p class="mt-1 text-sm text-slate-500">
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Quickly access your personal financial information.
             </p>
         </div>
@@ -282,18 +282,18 @@
             <!-- Dashboard -->
             <a
                 href="{% url 'expenses:dashboard' %}"
-                class="group rounded-xl border border-slate-200 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/50"
+                class="group rounded-xl border border-slate-200 dark:border-slate-800 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/50"
             >
 
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 font-semibold text-indigo-700">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-500/20 font-semibold text-indigo-700 dark:text-indigo-300">
                     $
                 </div>
 
-                <p class="mt-4 font-semibold text-slate-900 group-hover:text-indigo-700">
+                <p class="mt-4 font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-700">
                     Dashboard
                 </p>
 
-                <p class="mt-1 text-xs leading-5 text-slate-500">
+                <p class="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                     View your financial overview and recent activity.
                 </p>
 
@@ -303,18 +303,18 @@
             <!-- Transactions -->
             <a
                 href="{% url 'expenses:transaction_list' %}"
-                class="group rounded-xl border border-slate-200 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/50"
+                class="group rounded-xl border border-slate-200 dark:border-slate-800 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/50"
             >
 
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-lg font-semibold text-emerald-700">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-lg font-semibold text-emerald-700 dark:text-emerald-300">
                     ↕
                 </div>
 
-                <p class="mt-4 font-semibold text-slate-900 group-hover:text-indigo-700">
+                <p class="mt-4 font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-700">
                     Transactions
                 </p>
 
-                <p class="mt-1 text-xs leading-5 text-slate-500">
+                <p class="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                     Review and manage your income and expenses.
                 </p>
 
@@ -324,18 +324,18 @@
             <!-- Budgets -->
             <a
                 href="{% url 'expenses:budget_list' %}"
-                class="group rounded-xl border border-slate-200 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/50"
+                class="group rounded-xl border border-slate-200 dark:border-slate-800 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/50"
             >
 
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 font-semibold text-amber-700">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-500/20 font-semibold text-amber-700 dark:text-amber-300">
                     $
                 </div>
 
-                <p class="mt-4 font-semibold text-slate-900 group-hover:text-indigo-700">
+                <p class="mt-4 font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-700">
                     Budgets
                 </p>
 
-                <p class="mt-1 text-xs leading-5 text-slate-500">
+                <p class="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                     Create monthly limits and monitor your spending.
                 </p>
 
@@ -349,13 +349,13 @@
     <!-- =====================================================
          ACCOUNT ACTIONS
     ====================================================== -->
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm sm:p-8">
 
-        <h2 class="text-base font-semibold text-slate-900">
+        <h2 class="text-base font-semibold text-slate-900 dark:text-slate-100">
             Account Actions
         </h2>
 
-        <p class="mt-1 text-sm text-slate-500">
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Manage your account security and session.
         </p>
 
@@ -368,7 +368,7 @@
 
                 <a
                     href="{{ password_change_url }}"
-                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800"
                 >
                     Change Password
                 </a>
@@ -385,7 +385,7 @@
 
                 <button
                     type="submit"
-                    class="inline-flex items-center justify-center rounded-lg border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+                    class="inline-flex items-center justify-center rounded-lg border border-red-200 dark:border-red-800 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-red-600 dark:text-red-400 transition hover:bg-red-50"
                 >
                     Sign Out
                 </button>

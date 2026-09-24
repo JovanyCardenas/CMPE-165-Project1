@@ -9,26 +9,26 @@
     <!-- Back -->
     <a
         href="{% url 'profile' %}"
-        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-indigo-600"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 transition hover:text-indigo-600"
     >
         ← Back to Profile
     </a>
 
 
-    <div class="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="mt-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
 
         <!-- Header -->
-        <div class="border-b border-slate-200 p-6 sm:p-8">
+        <div class="border-b border-slate-200 dark:border-slate-800 p-6 sm:p-8">
 
-            <p class="text-sm font-medium text-indigo-600">
+            <p class="text-sm font-medium text-indigo-600 dark:text-indigo-400">
                 Account
             </p>
 
-            <h1 class="mt-1 text-2xl font-bold text-slate-900">
+            <h1 class="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">
                 Edit Profile
             </h1>
 
-            <p class="mt-2 text-sm text-slate-500">
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
                 Update the personal information associated with your account.
             </p>
 
@@ -36,14 +36,14 @@
 
 
         <!-- Form -->
-        <form method="post" class="p-6 sm:p-8">
+        <form method="post" class="p-6 sm:p-8 dark:[&_input]:border-slate-700 dark:[&_input]:bg-slate-800 dark:[&_input]:text-slate-100 dark:[&_input]:placeholder:text-slate-500 dark:[&_select]:border-slate-700 dark:[&_select]:bg-slate-800 dark:[&_select]:text-slate-100 dark:[&_textarea]:border-slate-700 dark:[&_textarea]:bg-slate-800 dark:[&_textarea]:text-slate-100">
 
             {% csrf_token %}
 
 
             {% if form.non_field_errors %}
 
-                <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                <div class="mb-6 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/40 p-4 text-sm text-red-700 dark:text-red-300">
                     {{ form.non_field_errors }}
                 </div>
 
@@ -57,7 +57,7 @@
 
                     <label
                         for="{{ form.first_name.id_for_label }}"
-                        class="mb-2 block text-sm font-semibold text-slate-700"
+                        class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300"
                     >
                         First Name
                     </label>
@@ -65,7 +65,7 @@
                     {{ form.first_name }}
 
                     {% for error in form.first_name.errors %}
-                        <p class="mt-1 text-xs text-red-600">
+                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">
                             {{ error }}
                         </p>
                     {% endfor %}
@@ -78,7 +78,7 @@
 
                     <label
                         for="{{ form.last_name.id_for_label }}"
-                        class="mb-2 block text-sm font-semibold text-slate-700"
+                        class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300"
                     >
                         Last Name
                     </label>
@@ -86,7 +86,7 @@
                     {{ form.last_name }}
 
                     {% for error in form.last_name.errors %}
-                        <p class="mt-1 text-xs text-red-600">
+                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">
                             {{ error }}
                         </p>
                     {% endfor %}
@@ -99,7 +99,7 @@
 
                     <label
                         for="{{ form.email.id_for_label }}"
-                        class="mb-2 block text-sm font-semibold text-slate-700"
+                        class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300"
                     >
                         Email Address
                     </label>
@@ -107,7 +107,7 @@
                     {{ form.email }}
 
                     {% for error in form.email.errors %}
-                        <p class="mt-1 text-xs text-red-600">
+                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">
                             {{ error }}
                         </p>
                     {% endfor %}
@@ -118,11 +118,11 @@
 
 
             <!-- Buttons -->
-            <div class="mt-8 flex flex-wrap justify-end gap-3 border-t border-slate-100 pt-6">
+            <div class="mt-8 flex flex-wrap justify-end gap-3 border-t border-slate-100 dark:border-slate-800 pt-6">
 
                 <a
                     href="{% url 'profile' %}"
-                    class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                    class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800"
                 >
                     Cancel
                 </a>

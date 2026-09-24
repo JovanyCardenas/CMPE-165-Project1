@@ -8,17 +8,17 @@
 
     <a
         href="{% url 'expenses:category_list' %}"
-        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-indigo-600"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 transition hover:text-indigo-600"
     >
         ← Back to Categories
     </a>
 
 
-    <div class="mt-6 overflow-hidden rounded-2xl border border-red-200 bg-white shadow-sm">
+    <div class="mt-6 overflow-hidden rounded-2xl border border-red-200 dark:border-red-800 bg-white dark:bg-slate-900 shadow-sm">
 
         <div class="p-6 sm:p-8">
 
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400">
 
                 <svg
                     class="h-6 w-6"
@@ -37,44 +37,44 @@
             </div>
 
 
-            <h1 class="mt-5 text-2xl font-bold text-slate-900">
+            <h1 class="mt-5 text-2xl font-bold text-slate-900 dark:text-slate-100">
                 Delete Category?
             </h1>
 
-            <p class="mt-2 text-sm leading-6 text-slate-500">
+            <p class="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
                 You're about to delete
-                <span class="font-semibold text-slate-800">
+                <span class="font-semibold text-slate-800 dark:text-slate-200">
                     {{ category.name }}
                 </span>.
             </p>
 
 
             <!-- Impact -->
-            <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <div class="mt-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-                <p class="text-sm font-semibold text-slate-800">
+                <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">
                     Category usage
                 </p>
 
                 <div class="mt-3 grid grid-cols-2 gap-4">
 
                     <div>
-                        <p class="text-xs text-slate-500">
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
                             Transactions
                         </p>
 
-                        <p class="mt-1 text-lg font-bold text-slate-900">
+                        <p class="mt-1 text-lg font-bold text-slate-900 dark:text-slate-100">
                             {{ transaction_count }}
                         </p>
                     </div>
 
 
                     <div>
-                        <p class="text-xs text-slate-500">
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
                             Budgets
                         </p>
 
-                        <p class="mt-1 text-lg font-bold text-slate-900">
+                        <p class="mt-1 text-lg font-bold text-slate-900 dark:text-slate-100">
                             {{ budget_count }}
                         </p>
                     </div>
@@ -86,13 +86,13 @@
 
             {% if budget_count > 0 %}
 
-                <div class="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <div class="mt-5 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 p-4">
 
-                    <p class="text-sm font-semibold text-amber-800">
+                    <p class="text-sm font-semibold text-amber-800 dark:text-amber-200">
                         This category cannot currently be deleted.
                     </p>
 
-                    <p class="mt-1 text-xs leading-5 text-amber-700">
+                    <p class="mt-1 text-xs leading-5 text-amber-700 dark:text-amber-300">
                         Delete the associated budget{{ budget_count|pluralize }}
                         before removing this category.
                     </p>
@@ -101,13 +101,13 @@
 
             {% elif transaction_count > 0 %}
 
-                <div class="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <div class="mt-5 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 p-4">
 
-                    <p class="text-sm font-semibold text-amber-800">
+                    <p class="text-sm font-semibold text-amber-800 dark:text-amber-200">
                         Transactions will become uncategorized
                     </p>
 
-                    <p class="mt-1 text-xs leading-5 text-amber-700">
+                    <p class="mt-1 text-xs leading-5 text-amber-700 dark:text-amber-300">
                         The {{ transaction_count }} associated
                         transaction{{ transaction_count|pluralize }} will remain
                         in your account, but their category will be removed.
@@ -122,7 +122,7 @@
 
                 <a
                     href="{% url 'expenses:category_list' %}"
-                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800"
                 >
                     Cancel
                 </a>

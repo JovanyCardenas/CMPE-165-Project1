@@ -12,15 +12,15 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
         <div>
-            <p class="text-sm font-medium text-indigo-600">
+            <p class="text-sm font-medium text-indigo-600 dark:text-indigo-400">
                 Financial Activity
             </p>
 
-            <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+            <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                 Transactions
             </h1>
 
-            <p class="mt-2 text-sm text-slate-600">
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
                 View, search, filter, and manage your income and expenses.
             </p>
         </div>
@@ -52,7 +52,7 @@
     <!-- =====================================================
          FILTERS
     ====================================================== -->
-    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
 
         <form method="get">
 
@@ -63,7 +63,7 @@
 
                     <label
                         for="search"
-                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
                     >
                         Search
                     </label>
@@ -74,7 +74,7 @@
                         name="search"
                         value="{{ search }}"
                         placeholder="Description or notes..."
-                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        class="block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 shadow-sm outline-none transition placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                     >
 
                 </div>
@@ -85,7 +85,7 @@
 
                     <label
                         for="type"
-                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
                     >
                         Type
                     </label>
@@ -93,7 +93,7 @@
                     <select
                         id="type"
                         name="type"
-                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        class="block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                     >
 
                         <option value="">
@@ -124,7 +124,7 @@
 
                     <label
                         for="category"
-                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
                     >
                         Category
                     </label>
@@ -132,7 +132,7 @@
                     <select
                         id="category"
                         name="category"
-                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        class="block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                     >
 
                         <option value="">
@@ -162,7 +162,7 @@
 
                     <label
                         for="month"
-                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                        class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
                     >
                         Month
                     </label>
@@ -170,7 +170,7 @@
                     <select
                         id="month"
                         name="month"
-                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                        class="block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                     >
 
                         <option value="">
@@ -209,7 +209,7 @@
 
                 <a
                     href="{% url 'expenses:transaction_list' %}"
-                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800"
                 >
                     Clear Filters
                 </a>
@@ -227,21 +227,21 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
         <!-- Income -->
-        <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+        <div class="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 p-4">
 
             <div class="flex items-center justify-between">
 
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">
                         Income
                     </p>
 
-                    <p class="mt-1 text-xl font-bold text-emerald-700">
+                    <p class="mt-1 text-xl font-bold text-emerald-700 dark:text-emerald-300">
                         +${{ filtered_income|floatformat:2 }}
                     </p>
                 </div>
 
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-lg font-semibold text-emerald-700">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-500/20 text-lg font-semibold text-emerald-700 dark:text-emerald-300">
                     ↑
                 </div>
 
@@ -251,21 +251,21 @@
 
 
         <!-- Expenses -->
-        <div class="rounded-xl border border-red-200 bg-red-50 p-4">
+        <div class="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/40 p-4">
 
             <div class="flex items-center justify-between">
 
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-wide text-red-700">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-red-700 dark:text-red-300">
                         Expenses
                     </p>
 
-                    <p class="mt-1 text-xl font-bold text-red-700">
+                    <p class="mt-1 text-xl font-bold text-red-700 dark:text-red-300">
                         -${{ filtered_expenses|floatformat:2 }}
                     </p>
                 </div>
 
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 text-lg font-semibold text-red-700">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 dark:bg-red-500/20 text-lg font-semibold text-red-700 dark:text-red-300">
                     ↓
                 </div>
 
@@ -279,35 +279,35 @@
     <!-- =====================================================
          TRANSACTION TABLE
     ====================================================== -->
-    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
 
         {% if transactions %}
 
             <div class="overflow-x-auto">
 
-                <table class="min-w-full divide-y divide-slate-200">
+                <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
 
-                    <thead class="bg-slate-50">
+                    <thead class="bg-slate-50 dark:bg-slate-800/60">
 
                         <tr>
 
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                 Transaction
                             </th>
 
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                 Category
                             </th>
 
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                 Date
                             </th>
 
-                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                 Amount
                             </th>
 
-                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                 Actions
                             </th>
 
@@ -316,11 +316,11 @@
                     </thead>
 
 
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
 
                         {% for transaction in transactions %}
 
-                            <tr class="transition hover:bg-slate-50">
+                            <tr class="transition hover:bg-slate-50 dark:hover:bg-slate-800">
 
                                 <!-- Transaction -->
                                 <td class="px-6 py-4">
@@ -329,13 +329,13 @@
 
                                         {% if transaction.transaction_type == "income" %}
 
-                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 font-semibold text-emerald-600">
+                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-500/20 font-semibold text-emerald-600 dark:text-emerald-400">
                                                 ↑
                                             </div>
 
                                         {% else %}
 
-                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-100 font-semibold text-red-600">
+                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-100 dark:bg-red-500/20 font-semibold text-red-600 dark:text-red-400">
                                                 ↓
                                             </div>
 
@@ -344,11 +344,11 @@
 
                                         <div class="min-w-0">
 
-                                            <p class="truncate font-medium text-slate-900">
+                                            <p class="truncate font-medium text-slate-900 dark:text-slate-100">
                                                 {{ transaction.description }}
                                             </p>
 
-                                            <p class="mt-0.5 text-xs capitalize text-slate-500">
+                                            <p class="mt-0.5 text-xs capitalize text-slate-500 dark:text-slate-400">
                                                 {{ transaction.transaction_type }}
                                             </p>
 
@@ -364,13 +364,13 @@
 
                                     {% if transaction.category %}
 
-                                        <span class="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+                                        <span class="inline-flex rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-300">
                                             {{ transaction.category.name }}
                                         </span>
 
                                     {% else %}
 
-                                        <span class="text-sm text-slate-400">
+                                        <span class="text-sm text-slate-400 dark:text-slate-500">
                                             Uncategorized
                                         </span>
 
@@ -380,7 +380,7 @@
 
 
                                 <!-- Date -->
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500 dark:text-slate-400">
                                     {{ transaction.date|date:"M j, Y" }}
                                 </td>
 
@@ -390,13 +390,13 @@
 
                                     {% if transaction.transaction_type == "income" %}
 
-                                        <span class="font-semibold text-emerald-600">
+                                        <span class="font-semibold text-emerald-600 dark:text-emerald-400">
                                             +${{ transaction.amount|floatformat:2 }}
                                         </span>
 
                                     {% else %}
 
-                                        <span class="font-semibold text-red-600">
+                                        <span class="font-semibold text-red-600 dark:text-red-400">
                                             -${{ transaction.amount|floatformat:2 }}
                                         </span>
 
@@ -410,14 +410,14 @@
 
                                     <a
                                         href="{% url 'expenses:transaction_update' transaction.pk %}"
-                                        class="text-sm font-semibold text-indigo-600 transition hover:text-indigo-700"
+                                        class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 transition hover:text-indigo-700"
                                     >
                                         Edit
                                     </a>
 
                                     <a
                                         href="{% url 'expenses:transaction_delete' transaction.pk %}"
-                                        class="ml-4 text-sm font-semibold text-red-600 transition hover:text-red-700"
+                                        class="ml-4 text-sm font-semibold text-red-600 dark:text-red-400 transition hover:text-red-700"
                                     >
                                         Delete
                                     </a>
@@ -442,15 +442,15 @@
             ====================================================== -->
             <div class="px-6 py-16 text-center">
 
-                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-xl font-semibold text-slate-500">
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-xl font-semibold text-slate-500 dark:text-slate-400">
                     $
                 </div>
 
-                <h2 class="mt-4 text-base font-semibold text-slate-900">
+                <h2 class="mt-4 text-base font-semibold text-slate-900 dark:text-slate-100">
                     No transactions found
                 </h2>
 
-                <p class="mx-auto mt-2 max-w-sm text-sm text-slate-500">
+                <p class="mx-auto mt-2 max-w-sm text-sm text-slate-500 dark:text-slate-400">
                     No transactions match your current filters. Try changing
                     your filters or add a new transaction.
                 </p>
@@ -460,7 +460,7 @@
 
                     <a
                         href="{% url 'expenses:transaction_list' %}"
-                        class="inline-flex rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                        class="inline-flex rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-slate-800"
                     >
                         Clear Filters
                     </a>

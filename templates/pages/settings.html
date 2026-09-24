@@ -1,0 +1,505 @@
+{% extends "base.html" %}
+
+{% block title %}Settings | Expense Tracker{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto max-w-5xl space-y-6 px-4 py-8 text-slate-800 dark:text-slate-200">
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+    <div class="flex flex-col gap-3 border-b border-slate-200 dark:border-slate-800 pb-5 sm:flex-row sm:items-end sm:justify-between">
+
+        <div>
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+                Settings
+            </h1>
+
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                Customize how Expense Tracker works for you.
+            </p>
+        </div>
+
+        <div class="text-xs text-slate-400">
+            Signed in as
+            <span class="font-semibold text-slate-600 dark:text-slate-300">
+                {{ request.user.username }}
+            </span>
+        </div>
+
+    </div>
+
+
+    <form method="post" class="space-y-6">
+
+        {% csrf_token %}
+
+
+        <!-- =====================================================
+             APPEARANCE
+        ====================================================== -->
+        <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+
+            <div class="mb-5">
+                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+                    Appearance
+                </h2>
+
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    Choose how Expense Tracker looks on your device.
+                </p>
+            </div>
+
+
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+                <div>
+                    <label
+                        for="theme"
+                        class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                    >
+                        Theme
+                    </label>
+
+                    <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                        Select light mode, dark mode, or follow your device.
+                    </p>
+                </div>
+
+
+                <select
+                    id="theme"
+                    name="theme"
+                    class="w-full rounded-xl border border-slate-300 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 sm:w-48"
+                >
+                    <option value="system"
+                        {% if settings.theme == "system" %}selected{% endif %}>
+                        System Default
+                    </option>
+
+                    <option value="light"
+                        {% if settings.theme == "light" %}selected{% endif %}>
+                        Light
+                    </option>
+
+                    <option value="dark"
+                        {% if settings.theme == "dark" %}selected{% endif %}>
+                        Dark
+                    </option>
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GENERAL
+        ====================================================== -->
+        <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+
+            <div class="mb-5">
+                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+                    General
+                </h2>
+
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    Set your basic Expense Tracker preferences.
+                </p>
+            </div>
+
+
+            <div class="divide-y divide-slate-100 dark:divide-slate-800">
+
+                <!-- Currency -->
+                <div class="flex flex-col gap-3 py-4 first:pt-0 sm:flex-row sm:items-center sm:justify-between">
+
+                    <div>
+                        <label
+                            for="currency"
+                            class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                        >
+                            Currency
+                        </label>
+
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Currency used when displaying financial amounts.
+                        </p>
+                    </div>
+
+                    <select
+                        id="currency"
+                        name="currency"
+                        class="w-full rounded-xl border border-slate-300 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 sm:w-48"
+                    >
+                        <option value="USD"
+                            {% if settings.currency == "USD" %}selected{% endif %}>
+                            USD ($)
+                        </option>
+
+                        <option value="MXN"
+                            {% if settings.currency == "MXN" %}selected{% endif %}>
+                            MXN ($)
+                        </option>
+
+                        <option value="EUR"
+                            {% if settings.currency == "EUR" %}selected{% endif %}>
+                            EUR (€)
+                        </option>
+
+                        <option value="GBP"
+                            {% if settings.currency == "GBP" %}selected{% endif %}>
+                            GBP (£)
+                        </option>
+
+                        <option value="CAD"
+                            {% if settings.currency == "CAD" %}selected{% endif %}>
+                            CAD ($)
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <!-- Items Per Page -->
+                <div class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+
+                    <div>
+                        <label
+                            for="items_per_page"
+                            class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                        >
+                            Items Per Page
+                        </label>
+
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Number of transactions shown on each page.
+                        </p>
+                    </div>
+
+                    <select
+                        id="items_per_page"
+                        name="items_per_page"
+                        class="w-full rounded-xl border border-slate-300 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 sm:w-48"
+                    >
+                        <option value="10"
+                            {% if settings.items_per_page == 10 %}selected{% endif %}>
+                            10
+                        </option>
+
+                        <option value="25"
+                            {% if settings.items_per_page == 25 %}selected{% endif %}>
+                            25
+                        </option>
+
+                        <option value="50"
+                            {% if settings.items_per_page == 50 %}selected{% endif %}>
+                            50
+                        </option>
+
+                        <option value="100"
+                            {% if settings.items_per_page == 100 %}selected{% endif %}>
+                            100
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <!-- Week Start -->
+                <div class="flex flex-col gap-3 py-4 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
+
+                    <div>
+                        <label
+                            for="week_start"
+                            class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                        >
+                            Start of Week
+                        </label>
+
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Choose which day is considered the start of your week.
+                        </p>
+                    </div>
+
+                    <select
+                        id="week_start"
+                        name="week_start"
+                        class="w-full rounded-xl border border-slate-300 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 sm:w-48"
+                    >
+                        <option value="sunday"
+                            {% if settings.week_start == "sunday" %}selected{% endif %}>
+                            Sunday
+                        </option>
+
+                        <option value="monday"
+                            {% if settings.week_start == "monday" %}selected{% endif %}>
+                            Monday
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DASHBOARD & TRANSACTIONS
+        ====================================================== -->
+        <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+
+            <div class="mb-5">
+                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+                    Dashboard & Transactions
+                </h2>
+
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    Control the default information shown while tracking expenses.
+                </p>
+            </div>
+
+
+            <div class="divide-y divide-slate-100 dark:divide-slate-800">
+
+                <!-- Dashboard Period -->
+                <div class="flex flex-col gap-3 py-4 first:pt-0 sm:flex-row sm:items-center sm:justify-between">
+
+                    <div>
+                        <label
+                            for="dashboard_period"
+                            class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                        >
+                            Default Dashboard Period
+                        </label>
+
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Time period shown when opening your dashboard.
+                        </p>
+                    </div>
+
+                    <select
+                        id="dashboard_period"
+                        name="dashboard_period"
+                        class="w-full rounded-xl border border-slate-300 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 sm:w-48"
+                    >
+                        <option value="month"
+                            {% if settings.dashboard_period == "month" %}selected{% endif %}>
+                            This Month
+                        </option>
+
+                        <option value="30days"
+                            {% if settings.dashboard_period == "30days" %}selected{% endif %}>
+                            Last 30 Days
+                        </option>
+
+                        <option value="year"
+                            {% if settings.dashboard_period == "year" %}selected{% endif %}>
+                            This Year
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <!-- Transaction Type -->
+                <div class="flex flex-col gap-3 py-4 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
+
+                    <div>
+                        <label
+                            for="default_transaction_type"
+                            class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                        >
+                            Default Transaction Type
+                        </label>
+
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Preselect a transaction type when adding a new transaction.
+                        </p>
+                    </div>
+
+                    <select
+                        id="default_transaction_type"
+                        name="default_transaction_type"
+                        class="w-full rounded-xl border border-slate-300 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 sm:w-48"
+                    >
+                        <option value="expense"
+                            {% if settings.default_transaction_type == "expense" %}selected{% endif %}>
+                            Expense
+                        </option>
+
+                        <option value="income"
+                            {% if settings.default_transaction_type == "income" %}selected{% endif %}>
+                            Income
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             BUDGETS & PRIVACY
+        ====================================================== -->
+        <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+
+            <div class="mb-5">
+                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">
+                    Budgets & Privacy
+                </h2>
+
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    Adjust budget warnings and how financial information is displayed.
+                </p>
+            </div>
+
+
+            <div class="divide-y divide-slate-100 dark:divide-slate-800">
+
+                <!-- Warning Threshold -->
+                <div class="flex flex-col gap-3 py-4 first:pt-0 sm:flex-row sm:items-center sm:justify-between">
+
+                    <div>
+                        <label
+                            for="budget_warning_threshold"
+                            class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                        >
+                            Budget Warning
+                        </label>
+
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                            Highlight a budget after this percentage has been used.
+                        </p>
+                    </div>
+
+                    <select
+                        id="budget_warning_threshold"
+                        name="budget_warning_threshold"
+                        class="w-full rounded-xl border border-slate-300 bg-white dark:bg-slate-900 px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 sm:w-48"
+                    >
+                        <option value="50"
+                            {% if settings.budget_warning_threshold == 50 %}selected{% endif %}>
+                            50%
+                        </option>
+
+                        <option value="75"
+                            {% if settings.budget_warning_threshold == 75 %}selected{% endif %}>
+                            75%
+                        </option>
+
+                        <option value="80"
+                            {% if settings.budget_warning_threshold == 80 %}selected{% endif %}>
+                            80%
+                        </option>
+
+                        <option value="90"
+                            {% if settings.budget_warning_threshold == 90 %}selected{% endif %}>
+                            90%
+                        </option>
+
+                        <option value="100"
+                            {% if settings.budget_warning_threshold == 100 %}selected{% endif %}>
+                            100%
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <!-- Hide Amounts -->
+                <div class="flex items-center justify-between gap-4 py-4">
+
+                    <div>
+                        <label
+                            for="hide_financial_amounts"
+                            class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                        >
+                            Hide Financial Amounts
+                        </label>
+
+                        <p class="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                            Hide sensitive financial amounts by default when using the app.
+                        </p>
+                    </div>
+
+                    <input
+                        id="hide_financial_amounts"
+                        type="checkbox"
+                        name="hide_financial_amounts"
+                        value="1"
+                        {% if settings.hide_financial_amounts %}checked{% endif %}
+                        class="h-5 w-5 shrink-0 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    >
+
+                </div>
+
+
+                <!-- Student Mode -->
+                <div class="flex items-center justify-between gap-4 py-4 last:pb-0">
+
+                    <div>
+                        <div class="flex items-center gap-2">
+
+                            <label
+                                for="student_mode"
+                                class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                            >
+                                Student Mode
+                            </label>
+
+                            <span class="rounded-full bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold text-blue-700">
+                                Student
+                            </span>
+
+                        </div>
+
+                        <p class="mt-1 max-w-xl text-xs leading-5 text-slate-500 dark:text-slate-400">
+                            Enable student-focused Expense Tracker features and
+                            recommendations as they become available.
+                        </p>
+                    </div>
+
+                    <input
+                        id="student_mode"
+                        type="checkbox"
+                        name="student_mode"
+                        value="1"
+                        {% if settings.student_mode %}checked{% endif %}
+                        class="h-5 w-5 shrink-0 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SAVE
+        ====================================================== -->
+        <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+            <p class="text-xs text-slate-400">
+                Account information and password settings are managed separately.
+            </p>
+
+            <button
+                type="submit"
+                class="rounded-xl bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+            >
+                Save Settings
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

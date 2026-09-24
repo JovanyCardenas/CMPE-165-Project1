@@ -18,11 +18,11 @@
             Financial Overview
         </p>
 
-        <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+        <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
             Dashboard
         </h1>
 
-        <p class="mt-2 text-sm text-slate-600">
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
             Here's an overview of your income, expenses, and budget.
         </p>
     </div>
@@ -33,7 +33,7 @@
 
         <a
             href="{% url 'expenses:category_list' %}"
-            class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+            class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 shadow-sm transition hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-800/60"
         >
             Manage Categories
         </a>
@@ -71,22 +71,22 @@
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
 
         <!-- Balance -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
             <div class="flex items-start justify-between">
 
                 <div>
-                    <p class="text-sm font-medium text-slate-500">
+                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                         Current Balance
                     </p>
 
-                    <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                    <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                         ${{ balance|default:"0.00"|floatformat:2 }}
                     </p>
                 </div>
 
 
-                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300">
 
                     <svg
                         class="h-5 w-5"
@@ -106,7 +106,7 @@
 
             </div>
 
-            <p class="mt-4 text-xs text-slate-500">
+            <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
                 Income minus expenses
             </p>
 
@@ -114,12 +114,12 @@
 
 
         <!-- Income -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
             <div class="flex items-start justify-between">
 
                 <div>
-                    <p class="text-sm font-medium text-slate-500">
+                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                         Total Income
                     </p>
 
@@ -129,7 +129,7 @@
                 </div>
 
 
-                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-300">
 
                     <svg
                         class="h-5 w-5"
@@ -149,7 +149,7 @@
 
             </div>
 
-            <p class="mt-4 text-xs text-slate-500">
+            <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
                 Income recorded this month
             </p>
 
@@ -157,12 +157,12 @@
 
 
         <!-- Expenses -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
             <div class="flex items-start justify-between">
 
                 <div>
-                    <p class="text-sm font-medium text-slate-500">
+                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                         Total Expenses
                     </p>
 
@@ -172,7 +172,7 @@
                 </div>
 
 
-                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-100 text-red-600">
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-300">
 
                     <svg
                         class="h-5 w-5"
@@ -192,7 +192,7 @@
 
             </div>
 
-            <p class="mt-4 text-xs text-slate-500">
+            <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
                 Expenses recorded this month
             </p>
 
@@ -200,22 +200,22 @@
 
 
         <!-- Budget -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
             <div class="flex items-start justify-between">
 
                 <div>
-                    <p class="text-sm font-medium text-slate-500">
+                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                         Budget Remaining
                     </p>
 
-                    <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                    <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                         ${{ budget_remaining|default:"0.00"|floatformat:2 }}
                     </p>
                 </div>
 
 
-                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-300">
 
                     <svg
                         class="h-5 w-5"
@@ -235,7 +235,7 @@
 
             </div>
 
-            <p class="mt-4 text-xs text-slate-500">
+            <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
                 Across your monthly budgets
             </p>
 
@@ -253,16 +253,16 @@
         <!-- =====================================================
              SPENDING BY CATEGORY
         ====================================================== -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm lg:col-span-2">
 
             <div class="flex items-center justify-between">
 
                 <div>
-                    <h2 class="text-lg font-semibold text-slate-900">
+                    <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
                         Spending by Category
                     </h2>
 
-                    <p class="mt-1 text-sm text-slate-500">
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         Where your money is going this month.
                     </p>
                 </div>
@@ -280,18 +280,18 @@
 
                             <div class="mb-2 flex items-center justify-between">
 
-                                <span class="text-sm font-medium text-slate-700">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-200">
                                     {{ item.category }}
                                 </span>
 
-                                <span class="text-sm font-semibold text-slate-900">
+                                <span class="text-sm font-semibold text-slate-900 dark:text-slate-100">
                                     ${{ item.total|floatformat:2 }}
                                 </span>
 
                             </div>
 
 
-                            <div class="h-2 overflow-hidden rounded-full bg-slate-100">
+                            <div class="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
 
                                 <div
                                     class="h-full rounded-full bg-indigo-600"
@@ -311,7 +311,7 @@
                 <!-- Empty State -->
                 <div class="flex min-h-56 flex-col items-center justify-center text-center">
 
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400">
 
                         <svg
                             class="h-6 w-6"
@@ -329,11 +329,11 @@
 
                     </div>
 
-                    <h3 class="mt-4 text-sm font-semibold text-slate-900">
+                    <h3 class="mt-4 text-sm font-semibold text-slate-900 dark:text-slate-100">
                         No spending data yet
                     </h3>
 
-                    <p class="mt-1 max-w-xs text-sm text-slate-500">
+                    <p class="mt-1 max-w-xs text-sm text-slate-500 dark:text-slate-400">
                         Add your first expense to start seeing your
                         spending breakdown.
                     </p>
@@ -348,16 +348,16 @@
         <!-- =====================================================
              MONTHLY BUDGET
         ====================================================== -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
 
             <div class="flex items-start justify-between">
 
                 <div>
-                    <h2 class="text-lg font-semibold text-slate-900">
+                    <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
                         Monthly Budget
                     </h2>
 
-                    <p class="mt-1 text-sm text-slate-500">
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         Your overall spending progress.
                     </p>
                 </div>
@@ -371,18 +371,18 @@
 
                     <div class="text-center">
 
-                        <p class="text-3xl font-bold text-slate-900">
+                        <p class="text-3xl font-bold text-slate-900 dark:text-slate-100">
                             {{ budget_percentage|default:0|floatformat:0 }}%
                         </p>
 
-                        <p class="mt-1 text-sm text-slate-500">
+                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                             of budget used
                         </p>
 
                     </div>
 
 
-                    <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-100">
+                    <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
 
                         <div
                             class="h-full rounded-full bg-indigo-600 transition-all"
@@ -395,22 +395,22 @@
                     <div class="mt-5 flex items-center justify-between text-sm">
 
                         <div>
-                            <p class="text-slate-500">
+                            <p class="text-slate-500 dark:text-slate-400">
                                 Spent
                             </p>
 
-                            <p class="mt-1 font-semibold text-slate-900">
+                            <p class="mt-1 font-semibold text-slate-900 dark:text-slate-100">
                                 ${{ total_expenses|default:"0.00"|floatformat:2 }}
                             </p>
                         </div>
 
 
                         <div class="text-right">
-                            <p class="text-slate-500">
+                            <p class="text-slate-500 dark:text-slate-400">
                                 Budget
                             </p>
 
-                            <p class="mt-1 font-semibold text-slate-900">
+                            <p class="mt-1 font-semibold text-slate-900 dark:text-slate-100">
                                 ${{ total_budget|floatformat:2 }}
                             </p>
                         </div>
@@ -423,7 +423,7 @@
 
                 <div class="flex min-h-56 flex-col items-center justify-center text-center">
 
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-300">
 
                         <svg
                             class="h-6 w-6"
@@ -441,11 +441,11 @@
 
                     </div>
 
-                    <h3 class="mt-4 text-sm font-semibold text-slate-900">
+                    <h3 class="mt-4 text-sm font-semibold text-slate-900 dark:text-slate-100">
                         No budget created
                     </h3>
 
-                    <p class="mt-1 text-sm text-slate-500">
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         Create a budget to start tracking your monthly spending.
                     </p>
 
@@ -469,17 +469,17 @@
     <!-- =========================================================
          RECENT TRANSACTIONS
     ========================================================== -->
-    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
 
         <!-- Header -->
-        <div class="flex items-center justify-between border-b border-slate-100 px-6 py-5">
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 px-6 py-5">
 
             <div>
-                <h2 class="text-lg font-semibold text-slate-900">
+                <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
                     Recent Transactions
                 </h2>
 
-                <p class="mt-1 text-sm text-slate-500">
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     Your latest financial activity.
                 </p>
             </div>
@@ -499,25 +499,25 @@
 
             <div class="overflow-x-auto">
 
-                <table class="min-w-full divide-y divide-slate-200">
+                <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
 
-                    <thead class="bg-slate-50">
+                    <thead class="bg-slate-50 dark:bg-slate-800/60">
 
                         <tr>
 
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                 Transaction
                             </th>
 
-                            <th class="hidden px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 sm:table-cell">
+                            <th class="hidden px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 sm:table-cell">
                                 Category
                             </th>
 
-                            <th class="hidden px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 md:table-cell">
+                            <th class="hidden px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 md:table-cell">
                                 Date
                             </th>
 
-                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                 Amount
                             </th>
 
@@ -526,11 +526,11 @@
                     </thead>
 
 
-                    <tbody class="divide-y divide-slate-100 bg-white">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
 
                         {% for transaction in recent_transactions %}
 
-                            <tr class="transition hover:bg-slate-50">
+                            <tr class="transition hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-800/60">
 
                                 <!-- Description -->
                                 <td class="whitespace-nowrap px-6 py-4">
@@ -539,7 +539,7 @@
 
                                         {% if transaction.transaction_type == "income" %}
 
-                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
+                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-300">
 
                                                 <svg
                                                     class="h-4 w-4"
@@ -559,7 +559,7 @@
 
                                         {% else %}
 
-                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600">
+                                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-300">
 
                                                 <svg
                                                     class="h-4 w-4"
@@ -582,11 +582,11 @@
 
                                         <div>
 
-                                            <p class="text-sm font-medium text-slate-900">
+                                            <p class="text-sm font-medium text-slate-900 dark:text-slate-100">
                                                 {{ transaction.description }}
                                             </p>
 
-                                            <p class="mt-0.5 text-xs capitalize text-slate-500 sm:hidden">
+                                            <p class="mt-0.5 text-xs capitalize text-slate-500 dark:text-slate-400 sm:hidden">
                                                 {{ transaction.transaction_type }}
                                             </p>
 
@@ -602,7 +602,7 @@
 
                                     {% if transaction.category %}
 
-                                        <span class="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+                                        <span class="inline-flex rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-200">
                                             {{ transaction.category.name }}
                                         </span>
 
@@ -618,7 +618,7 @@
 
 
                                 <!-- Date -->
-                                <td class="hidden whitespace-nowrap px-6 py-4 text-sm text-slate-500 md:table-cell">
+                                <td class="hidden whitespace-nowrap px-6 py-4 text-sm text-slate-500 dark:text-slate-400 md:table-cell">
                                     {{ transaction.date|date:"M j, Y" }}
                                 </td>
 
@@ -634,7 +634,7 @@
 
                                     {% else %}
 
-                                        <span class="text-sm font-semibold text-slate-900">
+                                        <span class="text-sm font-semibold text-slate-900 dark:text-slate-100">
                                             -${{ transaction.amount|floatformat:2 }}
                                         </span>
 
@@ -657,7 +657,7 @@
             <!-- Empty Transactions -->
             <div class="px-6 py-14 text-center">
 
-                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400">
 
                     <svg
                         class="h-6 w-6"
@@ -675,11 +675,11 @@
 
                 </div>
 
-                <h3 class="mt-4 text-sm font-semibold text-slate-900">
+                <h3 class="mt-4 text-sm font-semibold text-slate-900 dark:text-slate-100">
                     No transactions yet
                 </h3>
 
-                <p class="mx-auto mt-1 max-w-sm text-sm text-slate-500">
+                <p class="mx-auto mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-400">
                     Add your first income or expense to start tracking
                     your finances.
                 </p>
