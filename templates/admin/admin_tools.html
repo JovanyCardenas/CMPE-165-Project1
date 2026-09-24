@@ -375,6 +375,232 @@
     </div>
 
 
+<!-- =========================================================
+     DEMO & DEVELOPMENT TOOLS
+========================================================== -->
+<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
+    <!-- Header -->
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+
+        <div>
+            <div class="flex items-center gap-2">
+                <h2 class="text-lg font-bold text-slate-900">
+                    Demo & Development Tools
+                </h2>
+
+                <span class="rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-700">
+                    Superuser
+                </span>
+            </div>
+
+            <p class="mt-1 text-xs text-slate-500">
+                Manage demo data and run development utilities.
+            </p>
+        </div>
+
+        <span class="rounded-xl bg-indigo-50 p-2 text-indigo-600">
+            <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6l4 2"
+                />
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    stroke-width="2"
+                />
+            </svg>
+        </span>
+
+    </div>
+
+
+    <!-- Actions -->
+    <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Seed -->
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="seed_demo_data">
+
+            <button
+                type="submit"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-indigo-200 hover:bg-indigo-50"
+            >
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-lg font-semibold text-indigo-700">
+                    +
+                </span>
+
+                <span>
+                    <span class="block text-xs font-semibold text-slate-900">
+                        Seed Demo
+                    </span>
+                    <span class="block text-[11px] text-slate-500">
+                        Create default demo data
+                    </span>
+                </span>
+            </button>
+        </form>
+
+
+        <!-- Reset -->
+        <form
+            method="post"
+            onsubmit="return confirm('Reset the demo account to its original data?');"
+        >
+            {% csrf_token %}
+            <input type="hidden" name="action" value="reset_demo_data">
+
+            <button
+                type="submit"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-amber-200 hover:bg-amber-50"
+            >
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-sm font-bold text-amber-700">
+                    ↻
+                </span>
+
+                <span>
+                    <span class="block text-xs font-semibold text-slate-900">
+                        Reset Demo
+                    </span>
+                    <span class="block text-[11px] text-slate-500">
+                        Restore default dataset
+                    </span>
+                </span>
+            </button>
+        </form>
+
+
+        <!-- Historical Data -->
+        <form method="post">
+            {% csrf_token %}
+            <input
+                type="hidden"
+                name="action"
+                value="generate_sample_transactions"
+            >
+
+            <button
+                type="submit"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-sky-200 hover:bg-sky-50"
+            >
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-xs font-bold text-sky-700">
+                    +6
+                </span>
+
+                <span>
+                    <span class="block text-xs font-semibold text-slate-900">
+                        Add History
+                    </span>
+                    <span class="block text-[11px] text-slate-500">
+                        Generate 6 months
+                    </span>
+                </span>
+            </button>
+        </form>
+
+
+        <!-- Integrity -->
+        <form method="post">
+            {% csrf_token %}
+            <input
+                type="hidden"
+                name="action"
+                value="check_expense_tracker"
+            >
+
+            <button
+                type="submit"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-emerald-200 hover:bg-emerald-50"
+            >
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-sm font-bold text-emerald-700">
+                    ✓
+                </span>
+
+                <span>
+                    <span class="block text-xs font-semibold text-slate-900">
+                        Integrity Check
+                    </span>
+                    <span class="block text-[11px] text-slate-500">
+                        Check application data
+                    </span>
+                </span>
+            </button>
+        </form>
+
+
+        <!-- Clear -->
+        <form
+            method="post"
+            onsubmit="return confirm('Clear all generated demo financial data?');"
+        >
+            {% csrf_token %}
+            <input type="hidden" name="action" value="clear_demo_data">
+
+            <button
+                type="submit"
+                class="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition hover:border-orange-200 hover:bg-orange-50"
+            >
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-sm font-bold text-orange-700">
+                    ×
+                </span>
+
+                <span>
+                    <span class="block text-xs font-semibold text-slate-900">
+                        Clear Data
+                    </span>
+                    <span class="block text-[11px] text-slate-500">
+                        Keep demo account
+                    </span>
+                </span>
+            </button>
+        </form>
+
+
+        <!-- Delete -->
+        <form
+            method="post"
+            onsubmit="return confirm('WARNING: Permanently delete the demo account and all associated data?');"
+        >
+            {% csrf_token %}
+            <input
+                type="hidden"
+                name="action"
+                value="delete_demo_account"
+            >
+
+            <button
+                type="submit"
+                class="flex w-full items-center gap-3 rounded-xl border border-rose-200 bg-rose-50/40 px-4 py-3 text-left transition hover:bg-rose-50"
+            >
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-sm font-bold text-rose-700">
+                    ×
+                </span>
+
+                <span>
+                    <span class="block text-xs font-semibold text-rose-800">
+                        Delete Demo
+                    </span>
+                    <span class="block text-[11px] text-rose-600">
+                        Remove account & data
+                    </span>
+                </span>
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
     <!-- =========================================================
          USER IMPERSONATION
     ========================================================== -->

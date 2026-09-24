@@ -6,6 +6,7 @@ from .models import *
 from .signals import DEFAULT_TOGGLES
 from django.contrib import messages
 from django.contrib.auth import login, get_user_model
+from django.core.management import call_command
 
 User = get_user_model()
 
@@ -47,6 +48,88 @@ def admin_tools(request):
             messages.success(request, "Maintenance settings updated.")
 
         # ... your existing banner actions ...
+
+        elif action == "seed_demo_data":
+            try:
+                call_command("seed_demo_data")
+                messages.success(
+                    request,
+                    "Demo account and sample data created successfully."
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Demo setup failed: {e}"
+                )
+
+        elif action == "reset_demo_data":
+            try:
+                call_command("seed_demo_data", reset=True)
+                messages.success(
+                    request,
+                    "Demo account reset successfully."
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Demo reset failed: {e}"
+                )
+
+        elif action == "generate_sample_transactions":
+            try:
+                call_command(
+                    "generate_sample_transactions",
+                    "demo",
+                    months=6,
+                )
+                messages.success(
+                    request,
+                    "Six months of sample transactions generated."
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Sample generation failed: {e}"
+                )
+
+        elif action == "clear_demo_data":
+            try:
+                call_command("clear_demo_data")
+                messages.success(
+                    request,
+                    "Demo financial data cleared."
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Demo data could not be cleared: {e}"
+                )
+
+        elif action == "delete_demo_account":
+            try:
+                call_command("clear_demo_data", delete_user=True)
+                messages.success(
+                    request,
+                    "Demo account and all associated data deleted."
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Demo account could not be deleted: {e}"
+                )
+
+        elif action == "check_expense_tracker":
+            try:
+                call_command("check_expense_tracker")
+                messages.success(
+                    request,
+                    "Expense Tracker integrity check completed."
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Integrity check failed: {e}"
+                )
 
         return redirect("admin_tools")
 
